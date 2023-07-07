@@ -1,14 +1,14 @@
 require 'optparse'
 
-# rake download_pdf -- -f article_list.csv
-task :download_pdf do
+# rake download -- -f article_list.csv
+task :download do
   require 'csv'
   require_relative 'downloader'
   options = {
     input_file: 'article_list.csv'
   }
   opts = OptionParser.new
-  opts.banner = 'Usage: rake download_pdf [options]'
+  opts.banner = 'Usage: rake download [options]'
   opts.on('-f', '--f FILENAME', 'Input csv file name') { |input_file| options[:input_file] = input_file }
   args = opts.order!(ARGV) {}
   opts.parse!(args)
@@ -20,8 +20,8 @@ task :download_pdf do
   Downloader.new(article_list).download
 end
 
-# rake build_csv -- -f article_list.csv -c agriculture -u https://www.sciencedirect.com/
-task :build_csv do
+# rake csv -- -f article_list.csv -c agriculture -u https://www.sciencedirect.com/
+task :csv do
   require_relative 'scraper'
 
   options = {
@@ -30,7 +30,7 @@ task :build_csv do
     output_file: 'article_list.csv'
   }
   opts = OptionParser.new
-  opts.banner = 'Usage: rake build_csv [options]'
+  opts.banner = 'Usage: rake csv [options]'
   opts.on('-u', '--u URL', 'URL for article list') { |url| options[:url] = url }
   opts.on('-f', '--f FILENAME', 'Output csv filename') { |output_file| options[:output_file] = output_file }
   opts.on('-c', '--c CATEGORY', 'Category') { |category| options[:category] = category }
