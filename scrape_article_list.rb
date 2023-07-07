@@ -71,9 +71,9 @@ class ScrapeArticleList
     link = link_from_item(item)
     # id = generate_10_char_hash(link)
     id = extract_id_from_url(link)
-    download_link = download_link_from_item(item)
+    # download_link = download_link_from_item(item)
 
-    [id, link, title, year, category, id, download_link]
+    [id, link, title, year, category, id]
   end
 
   def link_from_item(item)

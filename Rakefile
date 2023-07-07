@@ -4,6 +4,7 @@ require 'optparse'
 task :download do
   require 'csv'
   require_relative 'downloader'
+
   options = {
     input_file: 'article_list.csv'
   }
@@ -15,6 +16,7 @@ task :download do
 
   puts opts
   puts 'Start downloading...'
+  puts '--------------------------------'
 
   article_list = CSV.read(options[:input_file])
   Downloader.new(article_list).download
@@ -39,6 +41,7 @@ task :csv do
 
   puts opts
   puts 'Start building csv...'
+  puts '--------------------------------'
 
   url = options[:url]
 
@@ -48,6 +51,13 @@ task :csv do
     context = Scraper.new(url, options[:category], options[:output_file]).scrape
     sleep(3)
 
+    puts '--------------------------------'
     url = context.next_url
+
+    if url
+      puts 'Next!'
+    else
+      puts 'Done!'
+    end
   end
 end
