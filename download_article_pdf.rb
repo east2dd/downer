@@ -1,7 +1,4 @@
-require 'selenium-webdriver'
-require 'csv'
 require 'interactor'
-require 'open-uri'
 require 'puppeteer'
 
 class DownloadArticlePdf
