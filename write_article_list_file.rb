@@ -5,7 +5,7 @@ class WriteArticleListFile
   include Interactor
 
   def call
-    header = %w[id link title year category file]
+    header = %w[id link title year publication category file]
 
     records = context.article_list
     file_mode = 'a'
