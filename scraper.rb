@@ -3,7 +3,7 @@ require 'interactor'
 require_relative 'scraper_organizer'
 
 class Scraper
-  def initialize(url, category, output_file)
+  def initialize(url, publication, category, output_file)
     # Initilize the driver with our desired browser
 
     options = Selenium::WebDriver::Chrome::Options.new
@@ -15,6 +15,7 @@ class Scraper
     @driver.get url
     @category = category
     @output_file = output_file
+    @publication = publication
 
     # Define global timeout threshold, when @wait is called, if the program
     # takes more than 20 secs to return something, we'll infer that somethig
@@ -23,7 +24,8 @@ class Scraper
   end
 
   def scrape
-    context = ScraperOrganizer.call(driver: @driver, wait: @wait, category: @category, output_file: @output_file)
+    context = ScraperOrganizer.call(driver: @driver, wait: @wait, category: @category, output_file: @output_file,
+                                    publication: @publication)
 
     @driver.quit # Close browser when the task is completed
 

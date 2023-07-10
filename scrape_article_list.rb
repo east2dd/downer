@@ -67,13 +67,15 @@ class ScrapeArticleList
   def article_record_from_item(item)
     title = title_from_item(item)
     year = year_from_item(item)
+    publication = context.publication
     category = context.category
     link = link_from_item(item)
     # id = generate_10_char_hash(link)
     id = extract_id_from_url(link)
+    filename = "#{id}.pdf"
     # download_link = download_link_from_item(item)
 
-    [id, link, title, year, category, id]
+    [id, link, title, year, publication, category, filename]
   end
 
   def link_from_item(item)

@@ -22,20 +22,22 @@ task :download do
   Downloader.new(article_list).download
 end
 
-# rake csv -- -f article_list.csv -c agriculture -u https://www.sciencedirect.com/
+# rake csv -- -f article_list.csv -p ScienceDirect -c agriculture -u https://www.sciencedirect.com/
 task :csv do
   require_relative 'scraper'
 
   options = {
     url: 'https://www.sciencedirect.com/search?show=100&qs=agriculture&date=2003-2023&articleTypes=FLA&lastSelectedFacet=articleTypes&accessTypes=openaccess&offset=900',
     category: 'agriculture',
-    output_file: 'article_list.csv'
+    output_file: 'article_list.csv',
+    publication: 'ScienceDirect'
   }
   opts = OptionParser.new
   opts.banner = 'Usage: rake csv [options]'
   opts.on('-u', '--u URL', 'URL for article list') { |url| options[:url] = url }
   opts.on('-f', '--f FILENAME', 'Output csv filename') { |output_file| options[:output_file] = output_file }
   opts.on('-c', '--c CATEGORY', 'Category') { |category| options[:category] = category }
+  opts.on('-p', '--p PUBLICATION_TITLE', 'Publication title') { |_category| options[:publication] = publication }
   args = opts.order!(ARGV) {}
   opts.parse!(args)
 
@@ -48,7 +50,7 @@ task :csv do
   while url
     puts "Processing url: #{url}"
 
-    context = Scraper.new(url, options[:category], options[:output_file]).scrape
+    context = Scraper.new(url, options[:publication], options[:category], options[:output_file]).scrape
     sleep(3)
 
     puts '--------------------------------'
