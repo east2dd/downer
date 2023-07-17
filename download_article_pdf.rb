@@ -5,7 +5,7 @@ class DownloadArticlePdf
   include Interactor
 
   def call
-    ::Puppeteer.launch(headless: false) do |browser|
+    ::Puppeteer.launch(headless: false, args: ['--javascript-harmony']) do |browser|
       context.article_list.each do |article|
         next if article[0] == 'id'
 
@@ -47,13 +47,16 @@ class DownloadArticlePdf
     page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
     sleep(1)
     page.add_style_tag(content: '.ReferenceLinks, #banner .crossmark-button, #banner svg, .RelatedContent, .related-content-links { display: none !important; }')
+    page.add_style_tag(content: '#body figure img { max-width: 100% !important; }')
     page.add_style_tag(content: '@media print { .publication-brand, .publication-cover { display: block !important; } }')
     # page.add_style_tag(content: '@media print { #body, .bibliography { page-break-before: always; }}')
 
     page.evaluate <<~JS
       const keywords = document.querySelector('.Keywords');
       const abstracts = document.querySelector('#abstracts');
-      keywords.parentNode.insertBefore(keywords, abstracts)
+      if(keywords) {
+        keywords.parentNode.insertBefore(keywords, abstracts);
+      }
 
       const header = document.querySelector('header');
       if (header) {
@@ -101,6 +104,37 @@ class DownloadArticlePdf
         citedBy.remove();
       }
     JS
+
+    page.evaluate <<~JS
+      const bodyElement = document.querySelector('#body'); // Replace with the ID or selector of your <div> element
+      const figureElements = bodyElement.querySelectorAll('figure'); // Select all figure elements on the page
+
+      for (const figureElement of figureElements) {
+        const imgElement = figureElement.querySelector('span img');
+        const olElement = figureElement.querySelector('span ol');
+
+        if (imgElement && olElement) {
+          const liElements = olElement.querySelectorAll('li');
+
+          if (liElements && liElements.length > 0) {
+            const aElement = liElements[0].querySelector('a');
+            const href = aElement.getAttribute('href');
+
+            imgElement.setAttribute('src', '');
+            imgElement.setAttribute('src', href);
+            imgElement.setAttribute('height', 'auto');
+            imgElement.setAttribute('width', 'auto');
+
+            olElement.remove();
+          }
+        }
+      }
+    JS
+
+    page.wait_for_function('() => {
+      const images = Array.from(document.querySelectorAll("figure img"));
+      return images.every(img => img.complete && img.naturalHeight !== 0);
+    }')
 
     pdf_options = {
       path: pdf_file_path,
