@@ -1,0 +1,199 @@
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=years&accessTypes=openaccess
+
+//Medicine and Dentistry
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=subjectAreas&accessTypes=openaccess&subjectAreas=2700
+
+//Biochemistry, Genetics and Molecular Biology
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=subjectAreas&accessTypes=openaccess&subjectAreas=1300
+
+//Engineering
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=subjectAreas&accessTypes=openaccess&subjectAreas=2200
+
+// Agricultural and Biological Sciences
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=subjectAreas&accessTypes=openaccess&subjectAreas=1100
+
+//Computer Science
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=subjectAreas&accessTypes=openaccess&subjectAreas=1700
+
+//Environmental Science
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=subjectAreas&accessTypes=openaccess&subjectAreas=2300
+
+//Materials Science
+https://www.sciencedirect.com/search?show=100&date=2003-2023&articleTypes=FLA&lastSelectedFacet=subjectAreas&accessTypes=openaccess&subjectAreas=2500
+
+Blood:                                              &publicationTitles=778769
+The Journal of Nutrition:                           &publicationTitles=782859
+The American Journal of Clinical Nutrition          &publicationTitles=782868
+Journal of Biological Chemistry                     &publicationTitles=778417
+Procedia - Social and Behavioral Sciences           &publicationTitles=277811
+Procedia Engineering                                &publicationTitles=278653
+Procedia Computer Science                           &publicationTitles=280203
+Energy Procedia                                     &publicationTitles=277910
+Journal of Mathematical Analysis and Applications   &publicationTitles=272578
+Journal of Dairy Science                            &publicationTitles=279785
+Biophysical Journal                                 &publicationTitles=277708
+Procedia CIRP                                       &publicationTitles=282173
+Heliyon                                             &publicationTitles=313379
+International Journal of Electrochemical Science    &publicationTitles=783334
+Cell Reports                                        &publicationTitles=280959
+Poultry Science                                     &publicationTitles=776861
+Journal of Computational and Applied Mathematics    &publicationTitles=271610
+Journal of Algebra                                  &publicationTitles=272332
+Linear Algebra and its Applications                 &publicationTitles=271586
+Journal of Materials Research and Technology        &publicationTitles=286905
+The Journal of Nutrition                            &publicationTitles=782859
+Computers & Mathematics with Applications           &publicationTitles=271503
+The American Journal of Clinical Nutrition          &publicationTitles=782868
+Journal of Vascular Surgery                         &publicationTitles=272610
+Theoretical Computer Science                        &publicationTitles=271538
+Physics Procedia                                    &publicationTitles=277348
+The Journal of Thoracic and Cardiovascular Surgery  &publicationTitles=272864
+
+272412  Virology
+271326  Fertility and Sterility
+321639  Annals of Oncology
+313527  Kidney International
+271007  Journal of Investigative Dermatology
+782964  American Journal of Transplantation
+271928  Biomedicine & Pharmacotherapy
+782959  Journal of Thrombosis and Haemostasis
+272508  NeuroImage
+271122  Vision Research
+312004  Clinical Microbiology and Infection
+272432  Respiratory Medicine
+272991  International Journal of Infectious Diseases
+318044  British Journal of Anaesthesia
+782701  Modern Pathology
+272926  Biology of Blood and Marrow Transplantation
+282794  NeuroImage, Clinical
+313381  Journal of Thoracic Oncology
+272474  Osteoarthritis and Cartilage
+272543  Developmental Biology
+272196  Cell
+272198  Molecular Cell
+778418  Journal of Lipid Research
+271033  Biochimica et Biophysica Acta (BBA) - Biomembranes
+778419  Molecular & Cellular Proteomics
+270195  Molecular Therapy
+311451  eBioMedicine
+272236  Developmental Cell
+272501  Genomics
+271023  Biochimica et Biophysica Acta (BBA) - Molecular Basis of Disease
+272027  Structure
+271024  Biochimica et Biophysica Acta (BBA) - Molecular Cell Research
+272099  Current Biology
+782706  Laboratory Investigation
+780143  Genetics in Medicine
+276895  The American Journal of Human Genetics
+271032  Biochimica et Biophysica Acta (BBA) - Bioenergetics
+282796  Redox Biology
+306540  Neoplasia
+272041  Experimental Hematology
+315508  Molecular Therapy - Nucleic Acids
+
+278653  Procedia Manufacturing
+271589  Applied Mathematical Modelling
+271891  International Journal of Solids and Structures
+313059  Materials & Design
+271532  Applied Mathematics Letters
+270704  Alexandria Engineering Journal
+271552  Mathematical and Computer Modelling
+274151  Chinese Journal of Aeronautics
+282073  Procedia Technology
+278678  Journal of King Saud University - Science
+270550  Ain Shams Engineering Journal
+271429  Applied Energy
+286687  Journal of Rock Mechanics and Geotechnical Engineering
+305758  Defence Technology
+287527  Case Studies in Construction Materials
+305941  Engineering Science and Technology, an International Journal
+272263  Comptes Rendus Mécanique
+271585  Artificial Intelligence
+320278  Results in Engineering
+279952  Journal of Advanced Research
+282128  Soils and Foundations
+282170  International Journal of Mining Science and Technology
+
+782803  Journal of Food Protection
+778414  animal
+272383  LWT
+272241  Ecological Indicators
+282494  Journal of Integrative Agriculture
+273500  South African Journal of Botany
+306541  Global Ecology and Conservation
+277412  Journal of Functional Foods
+776860  Journal of Applied Poultry Research
+311227  Aquaculture Reports
+272265  Comptes Rendus Biologies
+311979  Molecular Plant
+271102  FEBS Letters
+287972  Journal of Hydrology, Regional Studies
+271163  Food Chemistry
+287552  The Crop Journal
+271165  Food Research International
+273356  Limnologica
+271789  Geoderma
+270703  Agriculture and Agricultural Science Procedia
+279953  Field Mycology
+
+271602  Discrete Applied Mathematics
+272990  Electronic Notes in Theoretical Computer Science
+272371  Journal of Biomedical Informatics
+280416  Journal of King Saud University - Computer and Information Sciences
+271600  Science of Computer Programming
+272574  Journal of Computer and System Sciences
+272313  Journal of Symbolic Computation
+272575  Information and Computation
+312075  Informatics in Medicine Unlocked
+271512  Computational Geometry
+272975  Journal of Discrete Algorithms
+313521  ICT Express
+306123  Internet Interventions
+271700  European Journal of Operational Research
+271150  Computers in Biology and Medicine
+282178  IERI Procedia
+280962  Journal of the Egyptian Mathematical Society
+282179  AASRI Procedia
+272570  Journal of Computational Physics
+
+271800  Science of The Total Environment
+272576  Ecotoxicology and Environmental Safety
+271763  Environment International
+270397  Procedia Environmental Sciences
+278674  Saudi Journal of Biological Sciences
+271750  Journal of Cleaner Production
+305756  Toxicology Reports
+272261  Comptes Rendus Geoscience
+272637  International Journal of Applied Earth Observation and Geoinformation
+271852  Chemosphere
+272592  Journal of Environmental Management
+272394  Environmental Research
+271942  Chemical Engineering Journal
+308311  Environmental Technology & Innovation
+271833  Environmental Pollution
+271745  Remote Sensing of Environment
+314106  International Journal of Naval Architecture and Ocean Engineering
+271768  Water Research
+271798  Atmospheric Environment
+271238  Agricultural Water Management
+
+314029  Procedia Structural Integrity
+782049  Acta Crystallographica Section E Crystallographic Communications
+282606  Procedia Materials Science
+276826  Progress in Natural Science, Materials International
+308307  Nuclear Materials and Energy
+313777  Bioactive Materials
+286734  Journal of Magnesium and Alloys
+271545  Polymer Testing
+305927  Materials Today, Proceedings
+271533  Applied Surface Science
+782051  IUCrData
+273516  Transactions of Nonferrous Metals Society of China
+271635  Acta Materialia
+271472  International Journal of Hydrogen Energy
+271475  Construction and Building Materials
+312950  Journal of Materiomics
+271367  Journal of Power Sources
+273258  Acta Biomaterialia
+320038  Materials Today Bio
+

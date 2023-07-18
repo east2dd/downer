@@ -10,8 +10,9 @@ class ScrapeArticleList
     # Executes block while the next button is visible
     # If it's not it means that we are already on the last page
     # return unless nxt_button_visible?(context.wait, context.driver)
+    context.article_list = []
 
-    wait_until_pagination_visible(context.wait, context.driver)
+    wait_until_pagination_visible(context.wait, context.driver) rescue return nil
     fetch_titles(context.driver, context.wait)
 
     return unless nxt_button_visible?(context.driver)
@@ -66,7 +67,7 @@ class ScrapeArticleList
 
   def article_record_from_item(item)
     title = title_from_item(item)
-    year = year_from_item(item)
+    year = context.year
     publication = context.publication
     category = context.category
     link = link_from_item(item)
@@ -102,7 +103,7 @@ class ScrapeArticleList
     date_string = child_spans.last.text
     date = Date.parse(date_string)
 
-    date.year
+    date.year 
   end
 
   def download_link_from_item(item)
