@@ -8,6 +8,8 @@ class DownloadArticlePdf
 
   def call
     context.starts_at = Time.now
+    context.total_count = context.article_list.count
+    context.total_download_count = 0
 
     ::Puppeteer.launch(headless: false, args: ['--javascript-harmony']) do |browser|
       context.article_list.each do |article|
@@ -20,7 +22,10 @@ class DownloadArticlePdf
 
         pdf_file_path = "downloads/#{category}/#{publication}/#{id}.pdf"
 
-        next if File.exist?(pdf_file_path)
+        if File.exist?(pdf_file_path)
+          context.total_download_count += 1
+          next
+        end
 
         ensure_download_directory(category, publication)
         download_pdf(browser, url, pdf_file_path, article)
@@ -167,11 +172,14 @@ class DownloadArticlePdf
 
     hours = (Time.now.to_i - context.starts_at.to_i).to_f / 3600.0
     speed = (context.download_count.to_f / hours).to_i
+    download_percent = (context.total_download_count / context.total_count.to_f) * 100
 
     context.download_count += 1
+    context.total_download_count += 1
+
     puts "Pdf saved successfully: #{pdf_file_path}"
-    puts "Download count: #{context.download_count}"
-    puts "Download speed: #{speed} per hour (#{time_ago} ellapsed)"
+    puts "Download count: #{context.total_download_count} of #{context.total_count} (#{download_percent.round(2)}% downloaded)"
+    puts "Download speed: #{speed} per hour (current session: #{time_ago} ellapsed, #{context.download_count} downloaded)"
     puts '----------------------------------------------------------------'
 
     page.close
