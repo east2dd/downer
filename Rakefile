@@ -37,7 +37,7 @@ task :csv do
   opts.on('-u', '--u URL', 'URL for article list') { |url| options[:url] = url }
   opts.on('-f', '--f FILENAME', 'Output csv filename') { |output_file| options[:output_file] = output_file }
   opts.on('-c', '--c CATEGORY', 'Category') { |category| options[:category] = category }
-  opts.on('-p', '--p PUBLICATION_TITLE', 'Publication title') { |_category| options[:publication] = publication }
+  opts.on('-p', '--p PUBLICATION_TITLE', 'Publication title') { |publication| options[:publication] = publication }
   args = opts.order!(ARGV) {}
   opts.parse!(args)
 
