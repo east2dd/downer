@@ -28,7 +28,7 @@ class DownloadArticlePdf
 
   def ensure_download_directory(category, publication)
     current_directory = File.dirname(File.expand_path(__FILE__))
-    directory_path = current_directory + '/' + category
+    directory_path = current_directory + '/downloads/' + category
 
     # Check if the directory exists
     Dir.mkdir(directory_path) unless Dir.exist?(directory_path)
