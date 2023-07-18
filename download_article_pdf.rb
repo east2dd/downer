@@ -47,7 +47,7 @@ class DownloadArticlePdf
     page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
     sleep(1)
     page.add_style_tag(content: '.ReferenceLinks, #banner .crossmark-button, #banner svg, .RelatedContent, .related-content-links { display: none !important; }')
-    page.add_style_tag(content: '#body figure img { max-width: 100% !important; }')
+    page.add_style_tag(content: '#body figure img { max-width: 100% !important; padding: 1rem 0!important; }')
     page.add_style_tag(content: '@media print { .publication-brand, .publication-cover { display: block !important; } }')
     # page.add_style_tag(content: '@media print { #body, .bibliography { page-break-before: always; }}')
 
