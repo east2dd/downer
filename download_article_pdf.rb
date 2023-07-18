@@ -11,13 +11,14 @@ class DownloadArticlePdf
 
         id = article[0]
         url = article[1]
-        category = article[4].downcase
+        publication = article[4]
+        category = article[5]
 
-        pdf_file_path = "#{category}/#{id}.pdf"
+        pdf_file_path = "downloads/#{category}/#{publication}/#{id}.pdf"
 
         next if File.exist?(pdf_file_path)
 
-        ensure_download_directory(category)
+        ensure_download_directory(category, publication)
         download_pdf(browser, url, pdf_file_path, article)
       end
     end
@@ -25,9 +26,14 @@ class DownloadArticlePdf
 
   private
 
-  def ensure_download_directory(category)
+  def ensure_download_directory(category, publication)
     current_directory = File.dirname(File.expand_path(__FILE__))
     directory_path = current_directory + '/' + category
+
+    # Check if the directory exists
+    Dir.mkdir(directory_path) unless Dir.exist?(directory_path)
+
+    directory_path = directory_path + '/' + publication
 
     # Check if the directory exists
     Dir.mkdir(directory_path) unless Dir.exist?(directory_path)
