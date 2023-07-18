@@ -55,7 +55,7 @@ class DownloadArticlePdf
     article_title = article[2]
     article_year = article[3]
     article_publication = article[4]
-    puts "Downloading pdf for: #{article_id}, #{article_year}, #{article_publication}, #{article_title}"
+    puts "~ Downloading pdf: #{article_id}, #{article_year}, #{article_publication}, #{article_title}"
     page = browser.new_page
     page.goto url, wait_until: 'networkidle0'
 
@@ -171,7 +171,7 @@ class DownloadArticlePdf
     context.download_count += 1
     context.total_download_count += 1
 
-    puts "Pdf saved successfully: #{pdf_file_path}"
+    puts "~ Pdf saved successfully: #{pdf_file_path}"
     print_download_summary
     page.close
   end
@@ -181,10 +181,10 @@ class DownloadArticlePdf
     hours = (Time.now.to_i - context.starts_at.to_i).to_f / 3600.0
     speed = (context.download_count.to_f / hours).to_i
     download_percent = (context.total_download_count / context.total_count.to_f) * 100
-
-    puts '|'
-    puts "|__ Download percent: #{download_percent.round(2)}% (#{context.total_download_count} / #{context.total_count})"
-    puts "|__ Download speed: #{speed} per hour (#{context.download_count} downloaded,  #{time_in_words} ellapsed)"
-    puts '--------------------------------------------------------------------------------------------------------'
+    puts ''
+    puts "  + Download percent: #{download_percent.round(2)}% (#{context.total_download_count} / #{context.total_count})"
+    puts "  + Download speed: #{speed} per hour (#{context.download_count} downloaded,  #{time_in_words} ellapsed)"
+    puts ''
+    puts '--------------------------------'
   end
 end
