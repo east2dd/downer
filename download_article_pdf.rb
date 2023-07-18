@@ -5,6 +5,8 @@ class DownloadArticlePdf
   include Interactor
 
   def call
+    context.starts_at = Time.now
+
     ::Puppeteer.launch(headless: false, args: ['--javascript-harmony']) do |browser|
       context.article_list.each do |article|
         next if article[0] == 'id'
@@ -44,14 +46,15 @@ class DownloadArticlePdf
   def download_pdf(browser, url, pdf_file_path, article)
     article_id = article[0]
     article_title = article[2]
-    puts "Downloading pdf for: #{article_id} #{article_title}"
+    article_year = article[3]
+    article_publication = article[4]
+    puts "Downloading pdf for: #{article_id}, #{article_year}, #{article_publication}, #{article_title}"
     page = browser.new_page
     page.goto url, wait_until: 'networkidle0'
 
     # Wait for the page to fully load (add appropriate waits if needed)
-    sleep(0.5)
     page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
-    sleep(1)
+    sleep(0.5)
     page.add_style_tag(content: '.ReferenceLinks, #banner .crossmark-button, #banner svg, .RelatedContent, .related-content-links { display: none !important; }')
     page.add_style_tag(content: '#body figure img { max-width: 100% !important; padding: 1rem 0!important; }')
     page.add_style_tag(content: '@media print { .publication-brand, .publication-cover { display: block !important; } }')
@@ -158,9 +161,13 @@ class DownloadArticlePdf
     # Print the page as PDF
     page.pdf(pdf_options)
 
+    hours = (Time.now.to_i - context.starts_at.to_i).to_f / 3600.0
+    speed = context.download_count.to_f / hours
+
     context.download_count += 1
-    puts "Pdf saved successfully: #{article_id}.pdf"
+    puts "Pdf saved successfully: #{pdf_file_path}"
     puts "Download count: #{context.download_count}"
+    puts "Download speed: #{speed} per hour"
     puts '----------------------------------------------------------------'
 
     page.close
