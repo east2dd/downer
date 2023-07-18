@@ -168,7 +168,7 @@ class DownloadArticlePdf
     # Print the page as PDF
     page.pdf(pdf_options)
 
-    time_ago = distance_of_time_in_words(context.starts_at, Time.now)
+    time_in_words = distance_of_time_in_words(context.starts_at, Time.now)
 
     hours = (Time.now.to_i - context.starts_at.to_i).to_f / 3600.0
     speed = (context.download_count.to_f / hours).to_i
@@ -178,8 +178,8 @@ class DownloadArticlePdf
     context.total_download_count += 1
 
     puts "Pdf saved successfully: #{pdf_file_path}"
-    puts "Download count: #{context.total_download_count} of #{context.total_count} (#{download_percent.round(2)}% downloaded)"
-    puts "Download speed: #{speed} per hour (current session: #{time_ago} ellapsed, #{context.download_count} downloaded)"
+    puts "Download percent: #{download_percent.round(2)}% (#{context.total_download_count} / #{context.total_count})"
+    puts "Download speed: #{speed} per hour (#{context.download_count} downloaded / #{time_in_words})"
     puts '----------------------------------------------------------------'
 
     page.close
