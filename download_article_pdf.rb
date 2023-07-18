@@ -164,10 +164,13 @@ class DownloadArticlePdf
     hours = (Time.now.to_i - context.starts_at.to_i).to_f / 3600.0
     speed = (context.download_count.to_f / hours).to_i
 
+    ellapsed = "#{hours.round(2)} hours"
+    ellapsed = "#{(hours * 60).round(2)} minutes" if hours < 1.0
+
     context.download_count += 1
     puts "Pdf saved successfully: #{pdf_file_path}"
     puts "Download count: #{context.download_count}"
-    puts "Download speed: #{speed} per hour (#{hours.round(2)} hours ellapsed)"
+    puts "Download speed: #{speed} per hour (#{ellapsed} ellapsed)"
     puts '----------------------------------------------------------------'
 
     page.close
