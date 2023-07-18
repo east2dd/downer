@@ -183,7 +183,7 @@ class DownloadArticlePdf
     download_percent = (context.total_download_count / context.total_count.to_f) * 100
     puts ''
     puts "  + Download percent: #{download_percent.round(2)}% (#{context.total_download_count} / #{context.total_count})"
-    puts "  + Download speed: #{speed} per hour (#{context.download_count} downloaded,  #{time_in_words} ellapsed)"
+    puts "  + Download speed: #{speed}/h (#{context.download_count} downloaded, #{time_in_words} ellapsed)"
     puts ''
     puts '--------------------------------'
   end
