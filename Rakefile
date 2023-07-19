@@ -19,7 +19,17 @@ task :download do
   puts '--------------------------------'
 
   article_list = CSV.read(options[:input_file])
-  Downloader.new(article_list).download
+
+  begin
+    Downloader.new(article_list).download
+  rescue StandardError => e
+    puts "BREAKING: An error of type #{e.class} happened."
+    puts e.message
+
+    puts 'Retrying in 10 seconds...'
+    sleep(10)
+    retry
+  end
 end
 
 # rake csv -- -f article_list.csv -p ScienceDirect -c agriculture -u https://www.sciencedirect.com/
