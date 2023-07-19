@@ -57,7 +57,13 @@ class DownloadArticlePdf
     article_publication = article[4]
     puts "v Downloading pdf: #{article_id}, #{article_year}, #{article_publication}, #{article_title}"
     page = browser.new_page
-    page.goto url, wait_until: 'networkidle0'
+
+    begin
+      page.goto url, wait_until: 'networkidle0'
+    rescue StandardError => e
+      page.close
+      throw e
+    end
 
     page.add_style_tag(content: '.ReferenceLinks, #banner .crossmark-button, #banner svg, .RelatedContent, .related-content-links { display: none !important; }')
     page.add_style_tag(content: '#body figure img { max-width: 100% !important; padding: 1rem 0!important; }')
