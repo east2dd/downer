@@ -59,26 +59,23 @@ class DownloadArticlePdf
     page = browser.new_page
     page.goto url, wait_until: 'networkidle0'
 
-    # Wait for the page to fully load (add appropriate waits if needed)
-    page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
-    sleep(0.5)
     page.add_style_tag(content: '.ReferenceLinks, #banner .crossmark-button, #banner svg, .RelatedContent, .related-content-links { display: none !important; }')
     page.add_style_tag(content: '#body figure img { max-width: 100% !important; padding: 1rem 0!important; }')
+    page.add_style_tag(content: 'header { display: none !important;}')
+    page.add_style_tag(content: '.article-wrapper > div:first-child,  article-wrapper > div:last-child { display: none !important;}')
     page.add_style_tag(content: '@media print { .publication-brand, .publication-cover { display: block !important; } }')
     page.add_style_tag(content: '@media print { thead { display: table-row-group } }')
 
     # page.add_style_tag(content: '@media print { #body, .bibliography { page-break-before: always; }}')
+    # Wait for the page to fully load (add appropriate waits if needed)
+    sleep(0.5)
+    page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
 
     page.evaluate <<~JS
       const keywords = document.querySelector('.Keywords');
       const abstracts = document.querySelector('#abstracts');
       if(keywords) {
         keywords.parentNode.insertBefore(keywords, abstracts);
-      }
-
-      const header = document.querySelector('header');
-      if (header) {
-        header.remove();
       }
 
       const showMoreBtn = document.getElementById('show-more-btn');
