@@ -11,5 +11,5 @@ document.addEventListener("DOMContentLoaded", () => {
     const link = document.querySelector(".ViewPDF a");
     console.log(link.getAttribute("href"));
     window.location.href = link.getAttribute("href");
-  }, 2000);
+  }, 1000);
 });

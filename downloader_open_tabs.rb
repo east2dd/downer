@@ -8,6 +8,8 @@ class DownloaderOpenTabs
 
   def call
     context.tabs = []
+    context.download_count = 0
+    context.total_download_count = 0
 
     context.article_list.each do |article|
       next if article[0] == 'id'
@@ -23,7 +25,7 @@ class DownloaderOpenTabs
       open_pdf(url, pdf_file_path, article)
     end
 
-    sleep(10) if context.tabs.positive?
+    sleep(10) if context.tabs.count.positive?
   end
 
   private
@@ -60,7 +62,7 @@ class DownloaderOpenTabs
     puts "v Opening pdf: #{article_id}, #{article_year}, #{article_publication}, #{article_title}"
 
     Launchy.open(url)
-    sleep(1)
+    sleep(0.5)
     build_tabs(pdf_file_path, article_title)
   end
 end

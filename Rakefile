@@ -3,7 +3,7 @@ require 'optparse'
 # rake download -- -f article_list.csv
 task :download do
   require 'csv'
-  require_relative 'downloader'
+  require_relative 'csv_downloader'
 
   options = {
     input_file: 'article_list.csv'
@@ -18,18 +18,7 @@ task :download do
   puts 'Start downloading...'
   puts '--------------------------------'
 
-  chunk_size = 16
-
-  CSV.foreach(options[:input_file], headers: true).each_slice(chunk_size) do |article_list|
-    Downloader.new(article_list).download
-    # rescue StandardError => e
-    #   puts "BREAKING: An error of type #{e.class} happened."
-    #   puts e.message
-
-    #   puts 'Retrying in 10 seconds...'
-    #   sleep(10)
-    #   retry
-  end
+  CsvDownloader.new(options[:input_file], 20).call
 end
 
 # rake csv -- -f article_list.csv -p ScienceDirect -c agriculture -u https://www.sciencedirect.com/

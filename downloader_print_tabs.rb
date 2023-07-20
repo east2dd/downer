@@ -13,10 +13,14 @@ class DownloaderPrintTabs
     context.tabs.each do |_tab_info|
       tab_id = current_tab_id
       tab = tab_by_id(tab_id)
+
       puts "... Downloading: #{tab[1]}, #{tab[2]}"
       print_pdf(tab[1])
-      sleep(1)
+      sleep(1.5)
       close_tab_by_id(tab[0])
+
+      context.download_count += 1
+      context.total_download_count += 1
     end
   end
 
@@ -45,22 +49,43 @@ class DownloaderPrintTabs
     `osascript -e '#{script}'`.strip
   end
 
+  def copy_to_clipboard(text)
+    script = <<~APPLESCRIPT
+      set the clipboard to "#{text}"
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
   def print_pdf(file_path)
+    file, delimiter, ext = file_path.rpartition('.')
+    # copy_to_clipboard(directory)
+
+    # puts directory
+    # filename = file.split('.')[0]
+    # puts filename
+
+    # keystroke "g" using {command down, shift down}
+
     script = <<~APPLESCRIPT
       tell application "System Events"
         keystroke "p" using {command down}
-        delay 1 -- Adjust this delay as needed to allow the print dialog to open.
+        delay 1.5
         keystroke return
         delay 1
         keystroke "g" using {command down, shift down}
-        delay 1
-        keystroke "#{file_path}"
-        delay 1
-        keystroke return
-        delay 1
-        keystroke return
-        delay 1
-        keystroke return
+        delay 0.5
+        key code 44 -- 44 is the key code for the slash key
+        delay 0.2
+        key code 51 -- 51 is the key code for the delete key
+        delay 0.2
+        keystroke "#{file}"
+        delay 0.2
+        key code 36 -- 36 is the key code for the Enter key
+        delay 0.5
+        key code 36
+        delay 0.5
+        key code 36
       end tell
     APPLESCRIPT
 
