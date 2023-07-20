@@ -18,17 +18,17 @@ task :download do
   puts 'Start downloading...'
   puts '--------------------------------'
 
-  article_list = CSV.read(options[:input_file])
+  chunk_size = 16
 
-  begin
+  CSV.foreach(options[:input_file], headers: true).each_slice(chunk_size) do |article_list|
     Downloader.new(article_list).download
-  rescue StandardError => e
-    puts "BREAKING: An error of type #{e.class} happened."
-    puts e.message
+    # rescue StandardError => e
+    #   puts "BREAKING: An error of type #{e.class} happened."
+    #   puts e.message
 
-    puts 'Retrying in 10 seconds...'
-    sleep(10)
-    retry
+    #   puts 'Retrying in 10 seconds...'
+    #   sleep(10)
+    #   retry
   end
 end
 

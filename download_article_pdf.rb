@@ -1,6 +1,9 @@
 require 'interactor'
 require 'puppeteer'
 require 'action_view'
+require 'launchy'
+
+CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
 
 class DownloadArticlePdf
   include Interactor
@@ -20,7 +23,7 @@ class DownloadArticlePdf
         publication = article[4]
         category = article[5]
 
-        pdf_file_path = "downloads/#{category}/#{publication}/#{id}.pdf"
+        pdf_file_path = "#{CURRENT_DIR}/downloads/#{category}/#{publication}/#{id}.pdf"
 
         if File.exist?(pdf_file_path)
           context.total_download_count += 1
@@ -36,8 +39,7 @@ class DownloadArticlePdf
   private
 
   def ensure_download_directory(category, publication)
-    current_directory = File.dirname(File.expand_path(__FILE__))
-    directory_path = current_directory + '/downloads/' + category
+    directory_path = CURRENT_DIR + '/downloads/' + category
 
     # Check if the directory exists
     Dir.mkdir(directory_path) unless Dir.exist?(directory_path)
@@ -55,8 +57,11 @@ class DownloadArticlePdf
     article_title = article[2]
     article_year = article[3]
     article_publication = article[4]
+
     puts "v Downloading pdf: #{article_id}, #{article_year}, #{article_publication}, #{article_title}"
     page = browser.new_page
+    user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.198 Safari/537.36'
+    page.set_user_agent(user_agent)
 
     begin
       page.goto url, wait_until: 'networkidle0'
@@ -77,6 +82,54 @@ class DownloadArticlePdf
     sleep(0.5)
     page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
 
+    pdf_embed_element_exists = page.evaluate("() => {
+      return document.querySelector('.PdfEmbed') !== null;
+    }")
+
+    if pdf_embed_element_exists
+      puts 'BREAKING: Found embed pdf, ignoring and moving next!'
+      page.close
+      return false
+    end
+
+    evaluate_general_script(page)
+    evaluate_image_script(page)
+
+    pdf_options = {
+      path: pdf_file_path,
+      format: 'A3',
+      margin: {
+        top: '20px',
+        right: '20px',
+        bottom: '20px',
+        left: '20px'
+      }
+    }
+
+    # Print the page as PDF
+    page.pdf(pdf_options)
+
+    context.download_count += 1
+    context.total_download_count += 1
+
+    puts "+ Pdf saved successfully: #{pdf_file_path}"
+    print_download_summary
+    page.close
+  end
+
+  def print_download_summary
+    time_in_words = distance_of_time_in_words(context.starts_at, Time.now)
+    hours = (Time.now.to_i - context.starts_at.to_i).to_f / 3600.0
+    speed = (context.download_count.to_f / hours).to_i
+    download_percent = (context.total_download_count / context.total_count.to_f) * 100
+    puts ''
+    puts "  ~ Download percent: #{download_percent.round(2)}% (#{context.total_download_count} / #{context.total_count})"
+    puts "  ~ Download speed: #{speed}/h (#{context.download_count} downloaded, #{time_in_words} ellapsed)"
+    puts ''
+    puts '--------------------------------'
+  end
+
+  def evaluate_general_script(page)
     page.evaluate <<~JS
       const keywords = document.querySelector('.Keywords');
       const abstracts = document.querySelector('#abstracts');
@@ -125,7 +178,9 @@ class DownloadArticlePdf
         citedBy.remove();
       }
     JS
+  end
 
+  def evaluate_image_script(page)
     page.evaluate <<~JS
       const bodyElement = document.querySelector('#body'); // Replace with the ID or selector of your <div> element
       const figureElements = bodyElement.querySelectorAll('figure'); // Select all figure elements on the page
@@ -156,38 +211,5 @@ class DownloadArticlePdf
       const images = Array.from(document.querySelectorAll("figure img"));
       return images.every(img => img.complete && img.naturalHeight !== 0);
     }')
-
-    pdf_options = {
-      path: pdf_file_path,
-      format: 'A3',
-      margin: {
-        top: '20px',
-        right: '20px',
-        bottom: '20px',
-        left: '20px'
-      }
-    }
-
-    # Print the page as PDF
-    page.pdf(pdf_options)
-
-    context.download_count += 1
-    context.total_download_count += 1
-
-    puts "+ Pdf saved successfully: #{pdf_file_path}"
-    print_download_summary
-    page.close
-  end
-
-  def print_download_summary
-    time_in_words = distance_of_time_in_words(context.starts_at, Time.now)
-    hours = (Time.now.to_i - context.starts_at.to_i).to_f / 3600.0
-    speed = (context.download_count.to_f / hours).to_i
-    download_percent = (context.total_download_count / context.total_count.to_f) * 100
-    puts ''
-    puts "  ~ Download percent: #{download_percent.round(2)}% (#{context.total_download_count} / #{context.total_count})"
-    puts "  ~ Download speed: #{speed}/h (#{context.download_count} downloaded, #{time_in_words} ellapsed)"
-    puts ''
-    puts '--------------------------------'
   end
 end

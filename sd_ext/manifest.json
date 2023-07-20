@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+
+  "name": "sciencedirect pdf downloader",
+  "version": "0.1.0",
+  "description": "sciencedirect pdf downloader extension",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": [
+        "https://sciencedirect.com/*",
+        "https://www.sciencedirect.com/*"
+      ]
+    }
+  ]
+}
