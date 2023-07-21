@@ -36,7 +36,7 @@ class DownloaderOpenTabs
     "#{CURRENT_DIR}/downloads/#{category}/#{publication}/#{id}.pdf"
   end
 
-  def build_tabs(file_path, title)
+  def build_tabs(file_path, article)
     last_tab_script = <<~APPLESCRIPT
       tell application "Google Chrome"
         set allWindows to windows
@@ -48,12 +48,11 @@ class DownloaderOpenTabs
 
     tab_id = `osascript -e '#{last_tab_script}'`.strip
 
-    context.tabs << [tab_id, file_path, title]
+    context.tabs << [tab_id, file_path, article]
   end
 
   def open_pdf(url, pdf_file_path, article)
     article_id = article[0]
-    article_title = article[2]
     article_year = article[3]
     article_publication = article[4]
 
@@ -61,6 +60,6 @@ class DownloaderOpenTabs
 
     Launchy.open(url)
     sleep(0.5)
-    build_tabs(pdf_file_path, article_title)
+    build_tabs(pdf_file_path, article)
   end
 end

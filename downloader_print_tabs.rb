@@ -16,7 +16,11 @@ class DownloaderPrintTabs
       tab_id = current_tab_id
       tab = tab_by_id(tab_id)
 
-      puts "... Downloading: #{tab[2]}"
+      article = tab[2]
+      article_id = article[0]
+      article_title = article[2]
+
+      puts "... Downloading: #{article_id}, #{article_title}"
 
       current_url = current_tab_url
       unless printable_pdf_url?(current_url)
@@ -82,7 +86,7 @@ class DownloaderPrintTabs
 
     `osascript -e '#{script}'`
 
-    sleep(1)
+    sleep(2)
   end
 
   def current_tab_id
@@ -108,6 +112,7 @@ class DownloaderPrintTabs
     file, _delimiter, _ext = file_path.rpartition('.')
 
     copy_to_clipboard(file)
+    sleep(0.5)
 
     script = <<~APPLESCRIPT
       tell application "System Events"
@@ -124,12 +129,11 @@ class DownloaderPrintTabs
         keystroke "v" using {command down}
         delay 0.2
         key code 36 -- 36 is the key code for the Enter key
-        delay 0.6
+        delay 0.5
         key code 36
       end tell
     APPLESCRIPT
 
-    # Use the `osascript` command-line utility to execute the AppleScript
     `osascript -e '#{script}'`
     sleep(0.5)
 
