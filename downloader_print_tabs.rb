@@ -122,7 +122,7 @@ class DownloaderPrintTabs
     APPLESCRIPT
 
     `osascript -e '#{script_after}'`
-    sleep(1)
+    sleep(0.5)
   end
 
   def close_tab_by_id(tab_id)
