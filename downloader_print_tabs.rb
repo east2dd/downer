@@ -10,17 +10,15 @@ class DownloaderPrintTabs
   include ActionView::Helpers::DateHelper
 
   def call
+    wait_for_all_tabs_to_finish_loading if context.tabs.count.positive?
+
     context.tabs.each do |_tab_info|
       tab_id = current_tab_id
       tab = tab_by_id(tab_id)
 
-      puts "... Downloading: #{tab[1]}, #{tab[2]}"
+      puts "... Downloading: #{tab[2]}"
       print_pdf(tab[1])
-      sleep(1.5)
       close_tab_by_id(tab[0])
-
-      context.download_count += 1
-      context.total_download_count += 1
     end
   end
 
@@ -36,6 +34,33 @@ class DownloaderPrintTabs
     context.tabs.find do |tab|
       tab[0] == id
     end
+  end
+
+  def wait_for_all_tabs_to_finish_loading
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        set allTabsLoaded to false
+        repeat until allTabsLoaded is true
+          set allTabsLoaded to true
+          repeat with theWindow in windows
+            repeat with theTab in tabs of theWindow
+              if loading of theTab is true then
+                set allTabsLoaded to false
+                exit repeat
+              end if
+            end repeat
+          end repeat
+
+          if allTabsLoaded is false then
+            delay 1
+          end if
+        end repeat
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+
+    sleep(1)
   end
 
   def current_tab_id
@@ -58,21 +83,14 @@ class DownloaderPrintTabs
   end
 
   def print_pdf(file_path)
-    file, delimiter, ext = file_path.rpartition('.')
-    # copy_to_clipboard(directory)
-
-    # puts directory
-    # filename = file.split('.')[0]
-    # puts filename
-
-    # keystroke "g" using {command down, shift down}
+    file, _delimiter, _ext = file_path.rpartition('.')
 
     script = <<~APPLESCRIPT
       tell application "System Events"
         keystroke "p" using {command down}
-        delay 1.5
+        delay 2
         keystroke return
-        delay 1
+        delay 0.5
         keystroke "g" using {command down, shift down}
         delay 0.5
         key code 44 -- 44 is the key code for the slash key
@@ -82,6 +100,18 @@ class DownloaderPrintTabs
         keystroke "#{file}"
         delay 0.2
         key code 36 -- 36 is the key code for the Enter key
+        delay 0.6
+        key code 36
+      end tell
+    APPLESCRIPT
+
+    # Use the `osascript` command-line utility to execute the AppleScript
+    `osascript -e '#{script}'`
+    sleep(0.5)
+
+    script_after = <<~APPLESCRIPT
+      tell application "System Events"
+        key code 36 -- 36 is the key code for the Enter key
         delay 0.5
         key code 36
         delay 0.5
@@ -89,8 +119,8 @@ class DownloaderPrintTabs
       end tell
     APPLESCRIPT
 
-    # Use the `osascript` command-line utility to execute the AppleScript
-    `osascript -e '#{script}'`
+    `osascript -e '#{script_after}'`
+    sleep(1)
   end
 
   def close_tab_by_id(tab_id)

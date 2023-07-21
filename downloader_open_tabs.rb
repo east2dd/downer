@@ -24,8 +24,6 @@ class DownloaderOpenTabs
       url = article[1]
       open_pdf(url, pdf_file_path, article)
     end
-
-    sleep(10) if context.tabs.count.positive?
   end
 
   private
@@ -59,7 +57,7 @@ class DownloaderOpenTabs
     article_year = article[3]
     article_publication = article[4]
 
-    puts "v Opening pdf: #{article_id}, #{article_year}, #{article_publication}, #{article_title}"
+    puts "o-> Opening pdf: #{article_id}, #{article_year}, #{article_publication}"
 
     Launchy.open(url)
     sleep(0.5)

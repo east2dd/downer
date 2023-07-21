@@ -13,6 +13,7 @@ class Downloader
   def download
     # Calling interactor that orchestrates the scraper's logic
     # Organizer.call(driver: @driver, wait: @wait)
-    DownloaderOrganizer.call(article_list: @article_list, download_count: 0, total_download_count: 0)
+    DownloaderOrganizer.call(article_list: @article_list, download_count: 0, total_download_count: 0,
+                             missed_download_count: 0)
   end
 end
