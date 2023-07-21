@@ -108,11 +108,23 @@ class DownloaderPrintTabs
     `osascript -e '#{script}'`
   end
 
+  def clipboard_text
+    script = <<~APPLESCRIPT
+      set theData to (the clipboard as text)
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`.strip
+  end
+
   def print_pdf(file_path)
     file, _delimiter, _ext = file_path.rpartition('.')
 
     copy_to_clipboard(file)
-    sleep(0.5)
+    sleep(0.1)
+    clipboard_file = clipboard_text
+    sleep(0.1)
+
+    return false if clipboard_file != file
 
     script = <<~APPLESCRIPT
       tell application "System Events"
@@ -142,13 +154,13 @@ class DownloaderPrintTabs
         key code 36 -- 36 is the key code for the Enter key
         delay 0.5
         key code 36
-        delay 0.5
-        key code 36
       end tell
     APPLESCRIPT
 
     `osascript -e '#{script_after}'`
     sleep(0.5)
+
+    true
   end
 
   def close_tab_by_id(tab_id)
