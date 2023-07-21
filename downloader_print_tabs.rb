@@ -85,6 +85,8 @@ class DownloaderPrintTabs
   def print_pdf(file_path)
     file, _delimiter, _ext = file_path.rpartition('.')
 
+    copy_to_clipboard(file)
+
     script = <<~APPLESCRIPT
       tell application "System Events"
         keystroke "p" using {command down}
@@ -97,7 +99,7 @@ class DownloaderPrintTabs
         delay 0.2
         key code 51 -- 51 is the key code for the delete key
         delay 0.2
-        keystroke "#{file}"
+        keystroke "v" using {command down}
         delay 0.2
         key code 36 -- 36 is the key code for the Enter key
         delay 0.6
