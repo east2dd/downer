@@ -66,6 +66,8 @@ class DownloaderPrintTabs
       `osascript -e '#{script}'`
     end
 
+    sleep(10)
+
     close_all_tabs
   end
 
