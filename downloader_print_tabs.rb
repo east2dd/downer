@@ -18,9 +18,10 @@ class DownloaderPrintTabs
 
       puts "... Downloading: #{tab[2]}"
 
-      unless printable_pdf_url?(url)
+      current_url = current_tab_url
+      unless printable_pdf_url?(current_url)
         puts 'x Action Required: Please bypass bot checking and continue!!!'
-        puts current_tab_url
+        puts current_url
         exit
       end
 
