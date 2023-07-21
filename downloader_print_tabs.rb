@@ -26,7 +26,10 @@ class DownloaderPrintTabs
       unless printable_pdf_url?(current_url)
         puts 'x Action Required: Please bypass bot checking and continue!!!'
         puts current_url
-        exit
+
+        bypass_botcheck
+
+        raise 'Bypassed botcheck.'
       end
 
       print_pdf(tab[1])
@@ -38,6 +41,32 @@ class DownloaderPrintTabs
 
   def printable_pdf_url?(url)
     url.start_with? 'https://pdf.sciencedirectassets.com'
+  end
+
+  def close_all_tabs
+    context.tabs.each do |tab|
+      tab_id = tab[0]
+
+      close_tab_by_id(tab_id)
+      sleep(0.3)
+    end
+  end
+
+  def bypass_botcheck
+    script = <<~APPLESCRIPT
+      tell application "System Events"
+        keystroke tab
+        delay 0.5
+        keystroke space
+        delay 0.5
+      end tell
+    APPLESCRIPT
+
+    6.times do |_index|
+      `osascript -e '#{script}'`
+    end
+
+    close_all_tabs
   end
 
   def print_tabs

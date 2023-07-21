@@ -17,14 +17,27 @@ class CsvDownloader
 
   def call
     @starts_at = Time.now
+    retry_attempts = 3
 
     CSV.foreach(@input_file, headers: true).each_slice(@chunk_size) do |article_list|
-      context = Downloader.new(article_list).download
-      @download_count += context.download_count
-      @total_download_count += context.total_download_count
-      @missed_download_count += context.missed_download_count
-      print_download_summary
+      download(article_list)
+    rescue StandardError
+      retry_attempts -= 1
+
+      puts 'Retrying...'
+      sleep(1)
+      retry if retry_attempts > 0
     end
+  end
+
+  private
+
+  def download(article_list)
+    context = Downloader.new(article_list).download
+    @download_count += context.download_count
+    @total_download_count += context.total_download_count
+    @missed_download_count += context.missed_download_count
+    print_download_summary
   end
 
   def print_download_summary
