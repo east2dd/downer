@@ -17,12 +17,23 @@ class DownloaderPrintTabs
       tab = tab_by_id(tab_id)
 
       puts "... Downloading: #{tab[2]}"
+
+      unless printable_pdf_url?(url)
+        puts 'x Action Required: Please bypass bot checking and continue!!!'
+        puts current_tab_url
+        exit
+      end
+
       print_pdf(tab[1])
       close_tab_by_id(tab[0])
     end
   end
 
   private
+
+  def printable_pdf_url?(url)
+    url.start_with? 'https://pdf.sciencedirectassets.com'
+  end
 
   def print_tabs
     context.tabs.each do |tab_info|
@@ -34,6 +45,16 @@ class DownloaderPrintTabs
     context.tabs.find do |tab|
       tab[0] == id
     end
+  end
+
+  def current_tab_url
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        get URL of active tab of first window
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`.strip
   end
 
   def wait_for_all_tabs_to_finish_loading
