@@ -117,7 +117,7 @@ class DownloaderPrintTabs
 
     `osascript -e '#{script}'`
 
-    sleep(2)
+    sleep(2.5)
   end
 
   def current_tab_id
@@ -145,6 +145,16 @@ class DownloaderPrintTabs
     APPLESCRIPT
 
     `osascript -e '#{script}'`.strip
+  end
+
+  def press_enter
+    script = <<~APPLESCRIPT
+      tell application "System Events"
+        key code 36
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
   end
 
   def print_pdf(file_path)
@@ -180,15 +190,7 @@ class DownloaderPrintTabs
     `osascript -e '#{script}'`
     sleep(0.5)
 
-    script_after = <<~APPLESCRIPT
-      tell application "System Events"
-        key code 36 -- 36 is the key code for the Enter key
-        delay 0.5
-        key code 36
-      end tell
-    APPLESCRIPT
-
-    `osascript -e '#{script_after}'`
+    press_enter
     sleep(0.5)
 
     true
