@@ -29,7 +29,7 @@ class DownloaderMoveFiles
       tmp_missing_count += 1
     end
 
-    sleep(tmp_missing_count.count * 2)
+    sleep(tmp_missing_count * 2) if tmp_missing_count > 0
   end
 
   def move_files
