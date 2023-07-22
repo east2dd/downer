@@ -13,18 +13,23 @@ class CsvDownloader
     @total_download_count = 0
     @missed_download_count = 0
     @download_count = 0
+
+    @missed_article_list = []
   end
 
   def call
     @starts_at = Time.now
     retry_attempts = 3
 
-    CSV.foreach(@input_file, headers: true).each_slice(@chunk_size) do |article_list|
+    CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
       download(article_list)
-    rescue StandardError
+    rescue StandardError => e
       retry_attempts -= 1
 
-      puts 'Retrying...'
+      puts e.message
+      puts e.backtrace
+      puts 'x Retrying...'
+
       sleep(1)
       retry if retry_attempts > 0
     end
@@ -37,10 +42,12 @@ class CsvDownloader
     @download_count += context.download_count
     @total_download_count += context.total_download_count
     @missed_download_count += context.missed_download_count
-    print_download_summary
+    @missed_article_list += context.missed_article_list
+
+    print_total_summary
   end
 
-  def print_download_summary
+  def print_total_summary
     time_in_words = distance_of_time_in_words(@starts_at, Time.now)
     hours = (Time.now.to_i - @starts_at.to_i).to_f / 3600.0
     return if hours < 0.01

@@ -10,9 +10,9 @@ class DownloaderSummary
   include ActionView::Helpers::DateHelper
 
   def call
-    return if context.tabs.count == 0
+    context.missed_article_list = []
+    return if context.articles.count == 0
 
-    sleep(1)
     print_summary
   end
 
@@ -20,13 +20,16 @@ class DownloaderSummary
 
   def print_summary
     context.tabs.each do |tab|
-      file_path = tab[1]
-      if File.exist?(file_path)
+      article = tab.last
+
+      if article.exist_destionation_file?
         context.download_count += 1
         context.total_download_count += 1
       else
         context.missed_download_count += 1
-        puts "  x Missing: #{tab[2]}"
+        puts "  x Missing: #{article}"
+
+        context.missed_article_list << article.to_a
       end
     end
 

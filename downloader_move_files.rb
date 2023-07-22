@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'interactor'
+require_relative 'article'
 
 class DownloaderMoveFiles
   include Interactor
@@ -8,7 +9,7 @@ class DownloaderMoveFiles
   CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
 
   def call
-    return if context.tabs.count == 0
+    return true if context.tabs.count == 0
 
     sleep(3)
 
@@ -18,15 +19,15 @@ class DownloaderMoveFiles
   private
 
   def move_files
-    context.tabs.each do |tab|
-      file_path = tab[1]
-      article = tab[2]
-      downloaded_file_path = "#{context.download_directory}/#{article[0]}.pdf"
-      next unless File.exist? downloaded_file_path
+    context.tabs.reverse.each do |tab|
+      article = tab[1]
+      next unless article.exist_temp_file?
 
-      puts "-> Moving file: #{downloaded_file_path} -> #{file_path}"
+      puts "-> Moving file: #{article.temp_file_path} -> #{article.destination_file_path}"
 
-      FileUtils.mv downloaded_file_path, file_path, force: true
+      FileUtils.mv article.temp_file_path, article.destination_file_path, force: true
     end
+
+    Article.clear_temp_dir!
   end
 end
