@@ -4,7 +4,7 @@ class Article
   attr_reader :id, :link, :title, :year, :publication, :category, :filename, :data
 
   CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
-  DOWNLOAD_DIR = '/Users/xing/Downloads'
+  DOWNLOAD_DIR = File.expand_path('~/Downloads')
 
   def initialize(data)
     @data = data
