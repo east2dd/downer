@@ -11,16 +11,31 @@ class DownloaderMoveFiles
   def call
     return true if context.tabs.count == 0
 
-    sleep(6)
+    wait_download
 
     move_files
   end
 
   private
 
+  def wait_download
+    sleep(3)
+
+    tmp_missing_count = 0
+    context.tabs.reverse.each do |tab|
+      article = tab[1]
+      next if article.exist_temp_file?
+
+      tmp_missing_count += 1
+    end
+
+    sleep(tmp_missing_count.count * 2)
+  end
+
   def move_files
     context.tabs.reverse.each do |tab|
       article = tab[1]
+
       next unless article.exist_temp_file?
 
       puts "-> Moving file: #{article.temp_file_path} -> #{article.destination_file_path}"
