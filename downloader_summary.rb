@@ -11,7 +11,7 @@ class DownloaderSummary
 
   def call
     context.missed_article_list = []
-    return if context.articles.count == 0
+    return if context.tabs.count == 0
 
     print_summary
   end
@@ -35,5 +35,10 @@ class DownloaderSummary
 
     puts "  ~ Summary: #{context.download_count} downloaded, #{context.missed_download_count} missed"
     puts ''
+
+    return unless context.missed_download_count == context.tabs.count
+
+    puts '!!! Breaking: Something wrong, Please force quite browser and restart.'
+    exit
   end
 end

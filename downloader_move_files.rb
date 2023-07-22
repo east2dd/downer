@@ -11,7 +11,7 @@ class DownloaderMoveFiles
   def call
     return true if context.tabs.count == 0
 
-    sleep(3)
+    sleep(6)
 
     move_files
   end
