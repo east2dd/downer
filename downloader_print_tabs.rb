@@ -70,7 +70,7 @@ class DownloaderPrintTabs
       `osascript -e '#{script}'`
     end
 
-    sleep(10)
+    sleep(15)
 
     close_all_tabs
   end
@@ -138,7 +138,7 @@ class DownloaderPrintTabs
     `osascript -e '#{script}'`
 
     AsHelper.press_enter
-
+    AsHelper.copy_to_clipboard('error')
     true
   end
 end
