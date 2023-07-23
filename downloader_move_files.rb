@@ -19,8 +19,6 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    sleep(3)
-
     tmp_missing_count = 0
     context.tabs.reverse.each do |tab|
       article = tab[1]
@@ -29,7 +27,7 @@ class DownloaderMoveFiles
       tmp_missing_count += 1
     end
 
-    sleep(tmp_missing_count * 2) if tmp_missing_count > 0
+    sleep(tmp_missing_count * 3) if tmp_missing_count > 0
   end
 
   def move_files
