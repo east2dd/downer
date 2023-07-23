@@ -27,10 +27,10 @@ class DownloaderMoveFiles
       tmp_missing_count += 1
     end
 
-    if tmp_missing_count > 0
-      wait_seconds = [12, tmp_missing_count * 3].min
-      sleep(wait_seconds)
-    end
+    return unless tmp_missing_count > 0
+
+    wait_seconds = [12, tmp_missing_count * 3].min
+    sleep(wait_seconds)
   end
 
   def move_files
@@ -43,7 +43,5 @@ class DownloaderMoveFiles
 
       FileUtils.mv article.temp_file_path, article.destination_file_path, force: true
     end
-
-    Article.clear_temp_dir!
   end
 end
