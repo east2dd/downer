@@ -18,6 +18,9 @@ class DownloaderPrintTabs
   def download_tab(tab)
     tab_id = tab[0]
     article = tab.last
+
+    return false if article.exist_temp_file?
+
     puts "... Downloading: #{tab_id} | #{article}"
 
     ensure_pdf_page

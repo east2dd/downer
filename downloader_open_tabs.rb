@@ -21,7 +21,15 @@ class DownloaderOpenTabs
       open_and_build_tabs(article)
     end
 
-    wait_for_all_tabs_to_finish_loading if context.tabs.count.positive?
+    return unless context.tabs.count.positive?
+
+    wait_for_all_tabs_to_finish_loading
+
+    if context.tabs.count < 3
+      sleep(5)
+    else
+      sleep(3)
+    end
   end
 
   private
@@ -49,8 +57,6 @@ class DownloaderOpenTabs
     APPLESCRIPT
 
     `osascript -e '#{script}'`
-
-    sleep(3)
   end
 
   def open_and_build_tabs(article)
