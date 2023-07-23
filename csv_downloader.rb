@@ -23,15 +23,7 @@ class CsvDownloader
 
     CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
       download(article_list)
-    rescue StandardError => e
-      retry_attempts -= 1
-
-      puts e.message
-      puts e.backtrace
-      puts 'x Retrying...'
-
-      sleep(1)
-      retry if retry_attempts > 0
+      download(@missed_article_list) if @missed_article_list.count > 20
     end
   end
 
@@ -45,6 +37,15 @@ class CsvDownloader
     @missed_article_list += context.missed_article_list
 
     print_total_summary
+  rescue StandardError => e
+    retry_attempts -= 1
+
+    puts e.message
+    puts e.backtrace
+    puts 'x Retrying...'
+
+    sleep(1)
+    retry if retry_attempts > 0
   end
 
   def print_total_summary
