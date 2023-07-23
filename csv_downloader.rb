@@ -19,7 +19,6 @@ class CsvDownloader
 
   def call
     @starts_at = Time.now
-    retry_attempts = 3
 
     CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
       download(article_list)
@@ -33,6 +32,7 @@ class CsvDownloader
   private
 
   def download(article_list)
+    retry_attempts = 3
     context = Downloader.new(article_list).download
     @download_count += context.download_count
     @total_download_count += context.total_download_count
