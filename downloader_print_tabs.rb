@@ -57,6 +57,7 @@ class DownloaderPrintTabs
   end
 
   def bypass_botcheck
+    sleep(5)
     script = <<~APPLESCRIPT
       tell application "System Events"
         keystroke tab
