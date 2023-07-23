@@ -24,6 +24,9 @@ class DownloaderPrintTabs
 
     # print_pdf(article)
     save_pdf(article)
+
+    # if last tab, wait for a while
+    sleep(2) if tab_id == context.tabs.last[0]
     AsHelper.close_tab_by_id(tab_id)
   end
 
