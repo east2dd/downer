@@ -10,16 +10,14 @@ class DownloaderOpenTabs
   def call
     context.tabs = []
     context.download_count = 0
-    context.total_download_count = 0
+    context.total_download_count = context.article_list.count - context.downloadable_article_list.count
 
-    context.articles.each do |article|
-      if article.exist_destionation_file?
-        context.total_download_count += 1
-        next
-      end
-
-      open_and_build_tabs(article)
+    if maybe_retrying?
+      context.missed_article_list = context.downloadable_article_list
+      return context.skip
     end
+
+    open_tabs(context.downloadable_article_list)
 
     return unless context.tabs.count.positive?
 
@@ -33,6 +31,19 @@ class DownloaderOpenTabs
   end
 
   private
+
+  def maybe_retrying?
+    return false if context.downloadable_article_list.count == context.article_list.count
+
+    context.downloadable_article_list.count < 6
+  end
+
+  def open_tabs(article_list)
+    article_list.each do |article_data|
+      article = Article.new(article_data)
+      open_and_build_tabs(article)
+    end
+  end
 
   def wait_for_all_tabs_to_finish_loading
     script = <<~APPLESCRIPT

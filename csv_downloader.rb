@@ -35,11 +35,6 @@ class CsvDownloader
   private
 
   def download(article_list)
-    if article_list.count < 5
-      @missed_article_list += article_list
-      return false
-    end
-
     retry_attempts = 3
     context = Downloader.new(article_list).download
     @download_count += context.download_count

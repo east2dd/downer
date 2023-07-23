@@ -8,15 +8,18 @@ class DownloaderBuildArticles
   def call
     Article.clear_temp_dir!
 
-    context.articles = []
+    context.missed_article_list = []
+    context.downloadable_article_list = []
 
     context.article_list.each do |article_data|
       next if article_data[0] == 'id'
 
       article = Article.new(article_data)
+      next if article.exist_destionation_file?
+
       article.ensure_destination_dir!
 
-      context.articles << article
+      downloadable_article_list << article_data
     end
   end
 end
