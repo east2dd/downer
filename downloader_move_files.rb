@@ -27,7 +27,10 @@ class DownloaderMoveFiles
       tmp_missing_count += 1
     end
 
-    sleep(tmp_missing_count * 3) if tmp_missing_count > 0
+    if tmp_missing_count > 0
+      wait_seconds = [12, tmp_missing_count * 3].min
+      sleep(wait_seconds)
+    end
   end
 
   def move_files
