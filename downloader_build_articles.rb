@@ -19,7 +19,7 @@ class DownloaderBuildArticles
 
       article.ensure_destination_dir!
 
-      downloadable_article_list << article_data
+      context.downloadable_article_list << article_data
     end
   end
 end
