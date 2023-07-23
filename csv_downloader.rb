@@ -44,7 +44,6 @@ class CsvDownloader
     context = Downloader.new(article_list).download
     @download_count += context.download_count
     @total_download_count += context.total_download_count
-    @missed_download_count += context.missed_download_count
     @missed_article_list += context.missed_article_list
 
     print_total_summary
@@ -68,7 +67,7 @@ class CsvDownloader
     download_percent = (@total_download_count / @total_count.to_f) * 100
     puts ''
     puts "  ~ Download percent: #{download_percent.round(2)}% (#{@total_download_count} / #{@total_count})"
-    puts "  ~ Download missed: #{@missed_download_count}"
+    puts "  ~ Download missed: #{@missed_article_list.count}"
     puts "  ~ Download speed: #{speed}/h (#{@download_count} downloaded, #{time_in_words} ellapsed)"
     puts ''
     puts '--------------------------------'
