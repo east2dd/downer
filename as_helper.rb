@@ -3,7 +3,8 @@ module AsHelper
 
   def close_chrome
     script = <<~APPLESCRIPT
-      do shell script {"pkill Google\ Chrome"}
+      -- do shell script {"kill -9 $(pidof Google\ Chrome)"}
+      do shell script {"killall -9 Google\ Chrome"}
     APPLESCRIPT
 
     `osascript -e '#{script}'`
