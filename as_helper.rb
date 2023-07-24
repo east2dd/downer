@@ -1,12 +1,32 @@
 module AsHelper
   extend self
 
+  def close_chrome
+    script = <<~APPLESCRIPT
+      do shell script {"pkill Google\ Chrome"}
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
+  def open_chrome
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        activate
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
   def reopen_chrome
     script = <<~APPLESCRIPT
       tell application "Google Chrome"
         if it is running then
           quit
           delay 1
+          activate
+        else
           activate
         end if
       end tell
