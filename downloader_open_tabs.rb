@@ -74,7 +74,7 @@ class DownloaderOpenTabs
     Launchy.open(article.link)
     tab_id = AsHelper.current_tab_id
 
-    puts "o-> Opening pdf: #{tab_id} | #{article}"
+    puts "* Opening pdf: #{tab_id} | #{article}"
     context.tabs << [tab_id, article]
     sleep(0.1)
   end

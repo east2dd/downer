@@ -11,7 +11,7 @@ class DownloaderSummary
   include ActionView::Helpers::DateHelper
 
   def call
-    context.missed_article_list = []
+    context.missed_article_list ||= []
     return if context.tabs.count == 0
 
     print_summary
