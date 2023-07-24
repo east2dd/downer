@@ -76,7 +76,7 @@ class DownloaderPrintTabs
 
     sleep(15)
 
-    AsHelper.reopen_chrome
+    AsHelper.close_chrome
   end
 
   def tab_by_id(id)
