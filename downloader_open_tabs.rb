@@ -8,8 +8,6 @@ class DownloaderOpenTabs
   include Interactor
 
   def call
-    AsHelper.close_chrome
-
     context.tabs = []
     context.download_count = 0
     context.total_download_count = context.article_list.count - context.downloadable_article_list.count
@@ -41,6 +39,8 @@ class DownloaderOpenTabs
   end
 
   def open_tabs(article_list)
+    return AsHelper.close_chrome if article_list.count > 0
+
     article_list.each do |article_data|
       article = Article.new(article_data)
       open_and_build_tabs(article)
