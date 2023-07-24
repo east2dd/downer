@@ -8,6 +8,8 @@ class DownloaderOpenTabs
   include Interactor
 
   def call
+    AsHelper.close_chrome
+
     context.tabs = []
     context.download_count = 0
     context.total_download_count = context.article_list.count - context.downloadable_article_list.count

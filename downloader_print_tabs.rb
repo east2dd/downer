@@ -66,8 +66,6 @@ class DownloaderPrintTabs
     end
 
     sleep(15)
-
-    AsHelper.press_quit_window
   end
 
   def tab_by_id(id)
