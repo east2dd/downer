@@ -79,8 +79,8 @@ class DownloaderPrintTabs
 
     AsHelper.close_chrome
     sleep(0.1)
-    Launchy.open('https://www.sciencedirect.com/')
-    sleep(0.1)
+    Launchy.open('https://google.com/')
+    sleep(0.2)
   end
 
   def tab_by_id(id)

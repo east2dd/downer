@@ -39,8 +39,8 @@ class DownloaderSummary
 
     AsHelper.close_chrome
     sleep(0.1)
-    Launchy.open('https://www.sciencedirect.com/')
-    sleep(0.1)
+    Launchy.open('https://google.com/')
+    sleep(0.2)
 
     return unless context.missed_download_count == context.tabs.count
 
