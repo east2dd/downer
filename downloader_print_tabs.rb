@@ -122,7 +122,13 @@ class DownloaderPrintTabs
   def save_pdf(article)
     # file, _delimiter, _ext = article.destination_file_path.rpartition('.')
 
-    return false unless AsHelper.copy_to_clipboard(article.id)
+    AsHelper.copy_to_clipboard(article.id)
+    sleep(0.1)
+
+    if AsHelper.clipboard_text != article.id
+      AsHelper.copy_to_clipboard(article.id)
+      sleep(0.1)
+    end
 
     script = <<~APPLESCRIPT
       tell application "System Events"

@@ -28,10 +28,6 @@ module AsHelper
     APPLESCRIPT
 
     `osascript -e '#{script}'`
-
-    sleep(0.1)
-
-    clipboard_text == text
   end
 
   def clipboard_text
