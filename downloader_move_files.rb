@@ -39,7 +39,7 @@ class DownloaderMoveFiles
 
       next unless article.exist_temp_file?
 
-      puts "-> Moving file: #{article.temp_file_path} -> #{article.destination_file_path}"
+      puts "> Moving: #{article.temp_file_path} -> #{article.destination_file_path}"
 
       FileUtils.mv article.temp_file_path, article.destination_file_path, force: true
     end

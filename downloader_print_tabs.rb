@@ -22,7 +22,7 @@ class DownloaderPrintTabs
 
     return false if article.exist_temp_file?
 
-    puts "... Downloading: #{tab_id} | #{article}"
+    puts "v Downloading: #{tab_id} | #{article}"
 
     ensure_pdf_page
 
@@ -32,7 +32,7 @@ class DownloaderPrintTabs
     # if last tab, wait for a while
     return unless tab_id == context.tabs.first[0]
 
-    puts 'INFO: Processed last tab.'
+    puts '~ Processed last tab!'
     sleep(3)
   end
 
@@ -48,15 +48,6 @@ class DownloaderPrintTabs
 
   def printable_pdf_url?(url)
     url.start_with? 'https://pdf.sciencedirectassets.com'
-  end
-
-  def close_all_tabs
-    context.tabs.each do |tab|
-      tab_id = tab[0]
-
-      AsHelper.close_tab_by_id(tab_id)
-      sleep(0.1)
-    end
   end
 
   def bypass_botcheck
@@ -76,7 +67,7 @@ class DownloaderPrintTabs
 
     sleep(15)
 
-    close_all_tabs
+    AsHelper.press_quit_window
   end
 
   def tab_by_id(id)

@@ -37,12 +37,14 @@ class DownloaderSummary
     puts "  ~ Summary: #{context.download_count} downloaded, #{context.missed_download_count} missed"
     puts ''
 
+    AsHelper.close_chrome
+
     return unless context.missed_download_count == context.tabs.count
 
     puts '!!! Breaking: Something wrong, Please force quite browser and restart.'
     sleep(1)
-    AsHelper.press_quit_window
+    AsHelper.close_chrome
     sleep(1)
-    raise 'Quit browser and restarting...'
+    raise '!!! Quit browser and restarting...'
   end
 end

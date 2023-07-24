@@ -24,7 +24,7 @@ class CsvDownloader
       download(article_list)
       next unless @missed_article_list.count > 10
 
-      puts 'INFO: Processing missed articles...'
+      puts '~ Processing missed articles...'
       download(@missed_article_list)
       @missed_article_list = []
     end

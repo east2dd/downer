@@ -1,6 +1,18 @@
 module AsHelper
   extend self
 
+  def close_chrome
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        if it is running then
+          quit
+        end if
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
   def current_tab_url
     script = <<~APPLESCRIPT
       tell application "Google Chrome"
