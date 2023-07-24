@@ -60,4 +60,16 @@ module AsHelper
 
     `osascript -e '#{script}'`
   end
+
+  def press_quit_window
+    # cmd + alt + q
+
+    script = <<~APPLESCRIPT
+      tell application "System Events"
+        key code 12 using {command down, option down}
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
 end

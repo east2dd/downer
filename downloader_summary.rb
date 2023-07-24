@@ -2,6 +2,7 @@ require 'interactor'
 require 'puppeteer'
 require 'action_view'
 require 'launchy'
+require_relative 'as_helper'
 
 CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
 
@@ -39,6 +40,9 @@ class DownloaderSummary
     return unless context.missed_download_count == context.tabs.count
 
     puts '!!! Breaking: Something wrong, Please force quite browser and restart.'
-    exit
+    sleep(1)
+    AsHelper.press_quit_window
+    sleep(1)
+    raise 'Quit browser and restarting...'
   end
 end

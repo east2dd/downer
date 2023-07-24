@@ -67,7 +67,7 @@ class DownloadArticlePdf
       page.goto url, wait_until: 'networkidle0'
     rescue StandardError => e
       page.close
-      throw e
+      raise e
     end
 
     page.add_style_tag(content: '.ReferenceLinks, #banner .crossmark-button, #banner svg, .RelatedContent, .related-content-links { display: none !important; }')
