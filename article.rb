@@ -42,7 +42,7 @@ class Article
   end
 
   def to_s
-    "#{@id}, #{year}, #{publication}, #{title}"
+    "#{@id}, #{title}"
   end
 
   def to_a
