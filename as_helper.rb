@@ -3,7 +3,8 @@ module AsHelper
 
   def close_chrome
     script = <<~APPLESCRIPT
-      do shell script {"killall -9 'Google Chrome'"}
+      set processname to "Google Chrome"
+      do shell script "killall -9 " & quoted form of processname
     APPLESCRIPT
 
     `osascript -e '#{script}'`
