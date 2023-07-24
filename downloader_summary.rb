@@ -37,8 +37,10 @@ class DownloaderSummary
     puts "  ~ Summary: #{context.download_count} downloaded, #{context.missed_download_count} missed"
     puts ''
 
+    AsHelper.reopen_chrome
+
     return unless context.missed_download_count == context.tabs.count
 
-    puts '!!! Breaking: missed a lot articles...'
+    puts '!!! Breaking: missed a lot articles, closing browser and restarting...'
   end
 end

@@ -1,11 +1,13 @@
 module AsHelper
   extend self
 
-  def close_chrome
+  def reopen_chrome
     script = <<~APPLESCRIPT
       tell application "Google Chrome"
         if it is running then
           quit
+          delay 1
+          activate
         end if
       end tell
     APPLESCRIPT
@@ -16,7 +18,7 @@ module AsHelper
   def current_tab_url
     script = <<~APPLESCRIPT
       tell application "Google Chrome"
-        get URL of active tab of first window
+        get URL of active tab of front window
       end tell
     APPLESCRIPT
 

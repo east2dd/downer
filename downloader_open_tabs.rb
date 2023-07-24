@@ -39,8 +39,6 @@ class DownloaderOpenTabs
   end
 
   def open_tabs(article_list)
-    AsHelper.close_chrome if article_list.count > 0
-
     article_list.each do |article_data|
       article = Article.new(article_data)
       open_and_build_tabs(article)
