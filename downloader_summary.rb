@@ -39,8 +39,6 @@ class DownloaderSummary
 
     AsHelper.close_chrome
     sleep(0.5)
-    AsHelper.reopen_chrome
-    sleep(0.5)
 
     return unless context.missed_download_count == context.tabs.count
 

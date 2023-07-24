@@ -20,15 +20,11 @@ module AsHelper
     `osascript -e '#{script}'`
   end
 
-  def reopen_chrome
+  def close_chrome_if_opened
     script = <<~APPLESCRIPT
       tell application "Google Chrome"
         if it is running then
           quit
-          delay 1
-          activate
-        else
-          activate
         end if
       end tell
     APPLESCRIPT
