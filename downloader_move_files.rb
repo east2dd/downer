@@ -29,7 +29,7 @@ class DownloaderMoveFiles
 
     return unless tmp_missing_count > 0
 
-    wait_seconds = [12, tmp_missing_count * 3].min
+    wait_seconds = [8, tmp_missing_count * 3].min
     sleep(wait_seconds)
   end
 

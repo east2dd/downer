@@ -76,7 +76,7 @@ class DownloaderPrintTabs
 
     sleep(15)
 
-    close_all_tabs
+    AsHelper.reopen_chrome
   end
 
   def tab_by_id(id)
@@ -120,16 +120,6 @@ class DownloaderPrintTabs
   end
 
   def save_pdf(article)
-    # file, _delimiter, _ext = article.destination_file_path.rpartition('.')
-
-    # AsHelper.copy_to_clipboard(article.id)
-    # sleep(0.1)
-
-    # if AsHelper.clipboard_text != article.id
-    #   AsHelper.copy_to_clipboard(article.id)
-    #   sleep(0.1)
-    # end
-
     script = <<~APPLESCRIPT
       tell application "System Events"
         keystroke "s" using {command down}
@@ -149,7 +139,6 @@ class DownloaderPrintTabs
     `osascript -e '#{script}'`
 
     AsHelper.press_enter
-    # AsHelper.copy_to_clipboard('error')
     true
   end
 end
