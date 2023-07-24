@@ -122,13 +122,13 @@ class DownloaderPrintTabs
   def save_pdf(article)
     # file, _delimiter, _ext = article.destination_file_path.rpartition('.')
 
-    AsHelper.copy_to_clipboard(article.id)
-    sleep(0.1)
+    # AsHelper.copy_to_clipboard(article.id)
+    # sleep(0.1)
 
-    if AsHelper.clipboard_text != article.id
-      AsHelper.copy_to_clipboard(article.id)
-      sleep(0.1)
-    end
+    # if AsHelper.clipboard_text != article.id
+    #   AsHelper.copy_to_clipboard(article.id)
+    #   sleep(0.1)
+    # end
 
     script = <<~APPLESCRIPT
       tell application "System Events"
@@ -141,14 +141,15 @@ class DownloaderPrintTabs
         key code 51 -- 51 is the key code for the delete key
         key code 51
         delay 0.1
-        keystroke "v" using {command down}
+        -- keystroke "v" using {command down}
+        keystroke "#{article.id}"
       end tell
     APPLESCRIPT
 
     `osascript -e '#{script}'`
 
     AsHelper.press_enter
-    AsHelper.copy_to_clipboard('error')
+    # AsHelper.copy_to_clipboard('error')
     true
   end
 end
