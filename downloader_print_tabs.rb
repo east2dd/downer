@@ -1,4 +1,5 @@
 require 'interactor'
+require 'launchy'
 require_relative 'as_helper'
 
 class DownloaderPrintTabs
@@ -77,46 +78,15 @@ class DownloaderPrintTabs
     sleep(15)
 
     AsHelper.close_chrome
+    sleep(0.1)
+    Launchy.open('https://www.sciencedirect.com/')
+    sleep(0.1)
   end
 
   def tab_by_id(id)
     context.tabs.find do |tab|
       tab[0] == id
     end
-  end
-
-  def print_pdf(article)
-    file, _delimiter, _ext = article.destination_file_path.rpartition('.')
-
-    return false unless AsHelper.copy_to_clipboard(file)
-
-    script = <<~APPLESCRIPT
-      tell application "System Events"
-        keystroke "p" using {command down}
-        delay 2
-        keystroke return
-        delay 0.5
-        keystroke "g" using {command down, shift down}
-        delay 0.5
-        key code 44 -- 44 is the key code for the slash key
-        delay 0.2
-        key code 51 -- 51 is the key code for the delete key
-        delay 0.2
-        keystroke "v" using {command down}
-        delay 0.2
-        key code 36 -- 36 is the key code for the Enter key
-        delay 0.5
-        key code 36
-      end tell
-    APPLESCRIPT
-
-    `osascript -e '#{script}'`
-    sleep(0.5)
-
-    AsHelper.press_enter
-    sleep(0.5)
-
-    true
   end
 
   def save_pdf(article)
