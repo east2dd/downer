@@ -40,7 +40,7 @@ class DownloaderSummary
     AsHelper.close_chrome
     sleep(0.1)
     Launchy.open('https://google.com/')
-    sleep(0.2)
+    sleep(1)
 
     return unless context.missed_download_count == context.tabs.count
 
