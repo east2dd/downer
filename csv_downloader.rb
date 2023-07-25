@@ -22,11 +22,13 @@ class CsvDownloader
 
     CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
       download(article_list)
-      next unless @missed_article_list.count > 10
+      next unless @missed_article_list.count > 15
+
+      article_list = @missed_article_list
+      @missed_article_list = []
 
       puts '~ Processing missed articles...'
-      download(@missed_article_list)
-      @missed_article_list = []
+      download(article_list)
     end
 
     download(@missed_article_list)
