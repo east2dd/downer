@@ -1,5 +1,23 @@
 require 'optparse'
 
+task :report do
+  require_relative 'reporter'
+  options = {
+    input_file: 'article_list.csv'
+  }
+  opts = OptionParser.new
+  opts.banner = 'Usage: rake report [options]'
+  opts.on('-f', '--f FILENAME', 'Input csv file name') { |input_file| options[:input_file] = input_file }
+  args = opts.order!(ARGV) {}
+  opts.parse!(args)
+
+  puts opts
+  puts 'Start reporting...'
+  puts '--------------------------------'
+
+  Reporter.new(options[:input_file]).call
+end
+
 # rake download -- -f article_list.csv
 task :download do
   require 'csv'
