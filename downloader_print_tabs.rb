@@ -10,6 +10,11 @@ class DownloaderPrintTabs
       tab_id = AsHelper.current_tab_id
       tab = tab_by_id(tab_id)
 
+      if tab.nil? || !ensure_pdf_page
+        AsHelper.close_tab_by_id(tab_id)
+        next
+      end
+
       download_tab(tab)
       AsHelper.close_tab_by_id(tab_id)
     end
@@ -25,8 +30,6 @@ class DownloaderPrintTabs
 
     puts "... Downing: #{tab_id} | #{article}"
 
-    ensure_pdf_page
-
     # print_pdf(article)
     save_pdf(article)
 
@@ -39,7 +42,8 @@ class DownloaderPrintTabs
 
   def ensure_pdf_page
     current_url = AsHelper.current_tab_url
-    return if printable_pdf_url?(current_url)
+    return true if printable_pdf_url?(current_url)
+    return false unless current_url.start_with? 'https://www.sciencedirect.com/'
 
     puts 'x Action Required: Bot checking...'
     bypass_botcheck
