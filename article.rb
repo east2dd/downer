@@ -1,6 +1,5 @@
 require 'fileutils'
 require 'pdf-reader'
-require 'charlock_holmes'
 
 class Article
   attr_reader :id, :link, :title, :year, :publication, :category, :filename, :data

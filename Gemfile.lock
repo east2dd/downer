@@ -2,9 +2,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.3)
-    RubyInline (3.14.0)
-      ZenTest (~> 4.3)
-    ZenTest (4.12.1)
     actionview (7.0.6)
       activesupport (= 7.0.6)
       builder (~> 3.1)
@@ -20,12 +17,9 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     afm (0.2.2)
     builder (3.2.4)
-    charlock_holmes (0.7.7)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     erubi (1.12.0)
-    fuzzy-string-match (1.0.1)
-      RubyInline (>= 3.8.6)
     hashery (2.1.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -91,8 +85,6 @@ PLATFORMS
 
 DEPENDENCIES
   actionview
-  charlock_holmes
-  fuzzy-string-match (~> 1.0, >= 1.0.1)
   interactor
   launchy
   packetgen
