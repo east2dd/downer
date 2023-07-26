@@ -19,17 +19,10 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    tmp_missing_count = 0
-    context.tabs.reverse.each do |tab|
-      article = tab[1]
-      next if article.exist_temp_file?
+    file_map = build_file_map
+    tmp_missing_count = context.tabs.count - file_map.count
 
-      tmp_missing_count += 1
-    end
-
-    return unless tmp_missing_count > 0
-
-    wait_seconds = [9, tmp_missing_count * 3].min
+    wait_seconds = [5, tmp_missing_count * 2].min
     sleep(wait_seconds)
   end
 
