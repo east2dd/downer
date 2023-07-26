@@ -113,4 +113,8 @@ class Article
   def comparable_string(str)
     str.to_s.gsub(/[^0-9A-Za-z]/, '').downcase
   end
+
+  def file_size
+    File.size(destination_file_path)
+  end
 end
