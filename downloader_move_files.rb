@@ -37,10 +37,10 @@ class DownloaderMoveFiles
     file_map = []
     context.tabs.reverse.each do |tab|
       article = tab[1]
-      filename = find_temp_file(article)
-      next if filename.nil?
+      temp_file_path = find_temp_file_path(article)
+      next if temp_file_path.nil?
 
-      file_map << [article.temp_file(filename), article.destination_file_path]
+      file_map << [temp_file_path, article.destination_file_path]
     end
 
     file_map
@@ -56,7 +56,7 @@ class DownloaderMoveFiles
     end
   end
 
-  def find_temp_file(article)
+  def find_temp_file_path(article)
     pdf_file_names = Dir["#{Article::DOWNLOAD_DIR}/*.pdf"]
 
     pdf_file_names.find do |file_name|
