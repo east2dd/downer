@@ -29,19 +29,38 @@ class DownloaderMoveFiles
 
     return unless tmp_missing_count > 0
 
-    wait_seconds = [12, tmp_missing_count * 3].min
+    wait_seconds = [9, tmp_missing_count * 3].min
     sleep(wait_seconds)
   end
 
-  def move_files
+  def build_file_map
+    file_map = []
     context.tabs.reverse.each do |tab|
       article = tab[1]
+      filename = find_temp_file(article)
+      next if filename.nil?
 
-      next unless article.exist_temp_file?
+      file_map << [article.temp_file(filename), article.destination_file_path]
+    end
 
-      puts "> Moving: #{article.temp_file_path} -> #{article.destination_file_path}"
+    file_map
+  end
 
-      FileUtils.mv article.temp_file_path, article.destination_file_path, force: true
+  def move_files
+    file_map = build_file_map
+
+    file_map.each do |mapping|
+      puts "> Moving: #{mapping[0]} -> #{mapping[1]}"
+
+      FileUtils.mv mapping[0], mapping[1], force: true
+    end
+  end
+
+  def find_temp_file(article)
+    pdf_file_names = Dir["#{Article::DOWNLOAD_DIR}/*.pdf"]
+
+    pdf_file_names.find do |file_name|
+      file_name.include? article.id
     end
   end
 end

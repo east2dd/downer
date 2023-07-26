@@ -13,6 +13,10 @@ class Article
     @id, @link, @title, @year, @publication, @category, @filename = data
   end
 
+  def temp_file(name)
+    "#{DOWNLOAD_DIR}/#{name}"
+  end
+
   def temp_file_path
     "#{DOWNLOAD_DIR}/#{filename}"
   end

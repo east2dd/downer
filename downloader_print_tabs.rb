@@ -95,14 +95,8 @@ class DownloaderPrintTabs
       tell application "System Events"
         keystroke "s" using {command down}
         delay 1.2
-        -- keystroke "g" using {command down, shift down}
-        -- delay 0.5
-        -- key code 44 -- 44 is the key code for the slash key
-        -- delay 0.2
         key code 51 -- 51 is the key code for the delete key
         key code 51
-        delay 0.1
-        -- keystroke "v" using {command down}
         keystroke "#{article.id}"
       end tell
     APPLESCRIPT
@@ -110,6 +104,7 @@ class DownloaderPrintTabs
     `osascript -e '#{script}'`
 
     AsHelper.press_enter
+    sleep(0.3)
     true
   end
 end

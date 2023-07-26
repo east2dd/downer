@@ -1,6 +1,16 @@
 module AsHelper
   extend self
 
+  def keystroke(string)
+    script = <<~APPLESCRIPT
+      tell application "System Events"
+        keystroke "#{string}"
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
   def close_chrome
     script = <<~APPLESCRIPT
       set processname to "Google Chrome"
