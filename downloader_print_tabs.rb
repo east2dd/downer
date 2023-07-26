@@ -94,7 +94,7 @@ class DownloaderPrintTabs
     script = <<~APPLESCRIPT
       tell application "System Events"
         keystroke "s" using {command down}
-        delay 1.2
+        delay 1
         key code 51 -- 51 is the key code for the delete key
         key code 51
         keystroke "#{article.id}"
@@ -104,7 +104,7 @@ class DownloaderPrintTabs
     `osascript -e '#{script}'`
 
     AsHelper.press_enter
-    sleep(0.3)
+    sleep(0.2)
     true
   end
 end
