@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'pdf-reader'
+require 'charlock_holmes'
 
 class Article
   attr_reader :id, :link, :title, :year, :publication, :category, :filename, :data
@@ -116,5 +117,30 @@ class Article
 
   def file_size
     File.size(destination_file_path)
+  end
+
+  def title_matching_rate
+    title_words = title.downcase.split(' ')
+
+    page_text = first_page_text.downcase
+
+    intersection_words = []
+    title_words.each do |word|
+      next unless page_text.include? word
+
+      intersection_words << word
+    end
+
+    intersection_words.count / title_words.count.to_f
+  end
+
+  def to_extra_a
+    item = data
+    item << destination_file_path
+    item << page_count
+  end
+
+  def image_pdf?
+    first_page_text.length < 250
   end
 end

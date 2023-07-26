@@ -2,6 +2,7 @@ require 'action_view'
 require 'pdf-reader'
 require 'csv'
 require_relative 'article'
+require_relative 'write_article_list_file'
 
 class Reporter
   include ActionView::Helpers::DateHelper
@@ -29,7 +30,8 @@ class Reporter
       process_article_list(article_list)
     end
 
-    delete_wrong_files
+    # delete_wrong_files
+    build_extra_csv
   end
 
   private
@@ -39,6 +41,7 @@ class Reporter
       process_article_item(article_item)
     end
 
+    build_extra_csv
     print_summary
   end
 
@@ -64,6 +67,10 @@ class Reporter
 
     @one_page_article_list << article.to_a if article.page_count == 1
     @two_page_article_list << article.to_a if article.page_count == 2
+
+    return if article.page_count > 2
+
+    @wrongable_article_list << article.to_extra_a
   end
 
   def print_summary
@@ -90,5 +97,11 @@ class Reporter
         article.delete_destination_file!
       end
     end
+  end
+
+  def build_extra_csv
+    output_file = 'article_list-extra.csv'
+    WriteArticleListFile.call(output_file:, article_list: @wrongable_article_list)
+    @wrongable_article_list = []
   end
 end

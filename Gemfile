@@ -2,6 +2,7 @@ ruby '~> 3.2.0'
 source 'https://rubygems.org'
 
 gem 'actionview'
+gem 'charlock_holmes'
 gem 'fuzzy-string-match', '~> 1.0', '>= 1.0.1'
 gem 'interactor'
 gem 'launchy'
