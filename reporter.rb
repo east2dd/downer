@@ -30,8 +30,8 @@ class Reporter
       process_article_list(article_list)
     end
 
-    # delete_wrong_files
-    build_extra_csv
+    delete_wrong_files
+    # build_extra_csv
   end
 
   private
@@ -41,7 +41,7 @@ class Reporter
       process_article_item(article_item)
     end
 
-    build_extra_csv
+    # build_extra_csv
     print_summary
   end
 
