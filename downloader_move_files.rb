@@ -20,10 +20,14 @@ class DownloaderMoveFiles
 
   def wait_download
     file_map = build_file_map
-    tmp_missing_count = context.tabs.count - file_map.count
+    tmp_missing_count = downloads_file_count - file_map.count
 
-    wait_seconds = [2, tmp_missing_count * 1].min
+    wait_seconds = tmp_missing_count * 1
     sleep(wait_seconds)
+  end
+
+  def downloads_file_count
+    Dir["#{Article::DOWNLOAD_DIR}/*"].count
   end
 
   def build_file_map
