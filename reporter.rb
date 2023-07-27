@@ -68,7 +68,7 @@ class Reporter
     @one_page_article_list << article.to_a if article.page_count == 1
     @two_page_article_list << article.to_a if article.page_count == 2
 
-    return if article.page_count > 2
+    return if article.page_count > 1
 
     @wrongable_article_list << article.to_extra_a
   end
@@ -86,16 +86,14 @@ class Reporter
   end
 
   def delete_wrong_files
-    return false if @one_page_article_list.count == 0
+    return false if @wrongable_article_list.count == 0
 
     puts 'Deleting wrong files!'
-    @one_page_article_list.each do |article_item|
+    @wrongable_article_list.each do |article_item|
       article = Article.new(article_item)
 
-      if article.page_count == 1 && article.maybe_wrong?
-        puts "x Deleting: #{article}"
-        article.delete_destination_file!
-      end
+      puts "x Deleting: #{article}"
+      article.delete_destination_file!
     end
   end
 
