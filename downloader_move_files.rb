@@ -22,7 +22,7 @@ class DownloaderMoveFiles
     file_map = build_file_map
     tmp_missing_count = context.tabs.count - file_map.count
 
-    wait_seconds = [5, tmp_missing_count * 2].min
+    wait_seconds = [2, tmp_missing_count * 1].min
     sleep(wait_seconds)
   end
 
