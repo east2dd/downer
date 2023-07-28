@@ -37,8 +37,10 @@ class DownloaderSummary
     puts "  ~ Summary: #{context.download_count} downloaded, #{context.missed_download_count} missed"
     puts ''
 
-    AsHelper.close_chrome
-    sleep(1)
+    if context.missed_download_count > 2
+      AsHelper.close_chrome
+      sleep(1)
+    end
 
     return unless context.missed_download_count == context.tabs.count
 
