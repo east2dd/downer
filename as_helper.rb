@@ -1,6 +1,26 @@
 module AsHelper
   extend self
 
+  def chrome_tabs_count
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        set windowCount to count windows
+        set tabCount to 0
+        repeat with theWindow in windows
+            set tabCount to tabCount + (count of tabs of theWindow)
+        end repeat
+      end tell
+
+      if windowCount > 0 and tabCount > 0 then
+        return tabCount -- There are open tabs
+      else
+        return 0
+      end if
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`.to_i
+  end
+
   def keystroke(string)
     script = <<~APPLESCRIPT
       tell application "System Events"

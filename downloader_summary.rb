@@ -42,8 +42,8 @@ class DownloaderSummary
       sleep(1)
     end
 
-    return unless context.missed_download_count == context.tabs.count
+    return if AsHelper.chrome_tabs_count > 0
 
-    puts '!!! Breaking: missed a lot articles, closing browser and restarting...'
+    Launchy.open('https://google.com')
   end
 end
