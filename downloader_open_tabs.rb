@@ -21,13 +21,14 @@ class DownloaderOpenTabs
 
     return unless context.tabs.count.positive?
 
+    open_tabs_at = Time.now
+
     wait_for_all_tabs_to_finish_loading
 
-    if context.tabs.count < 3
-      sleep(5)
-    else
-      sleep(3)
-    end
+    wait_duration = (Time.now - open_tabs_at) / 2
+
+    puts "Waiting: #{wait_duration}"
+    sleep(wait_duration)
   end
 
   private
@@ -35,7 +36,7 @@ class DownloaderOpenTabs
   def maybe_retrying?
     return false if context.downloadable_article_list.count == context.article_list.count
 
-    context.downloadable_article_list.count < 6
+    context.downloadable_article_list.count < 10
   end
 
   def open_tabs(article_list)

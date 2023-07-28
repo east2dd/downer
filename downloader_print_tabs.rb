@@ -32,12 +32,13 @@ class DownloaderPrintTabs
 
     # print_pdf(article)
     save_pdf(article)
+    sleep(0.1)
 
     # if last tab, wait for a while
     return unless tab_id == context.tabs.first[0]
 
     puts 'INFO: Processed last tab.'
-    sleep(3)
+    sleep(1)
   end
 
   def ensure_pdf_page
@@ -60,7 +61,6 @@ class DownloaderPrintTabs
       tab_id = tab[0]
 
       AsHelper.close_tab_by_id(tab_id)
-      sleep(0.1)
     end
   end
 
@@ -95,16 +95,15 @@ class DownloaderPrintTabs
       tell application "System Events"
         keystroke "s" using {command down}
         delay 1
-        key code 51 -- 51 is the key code for the delete key
-        key code 51
-        keystroke "#{article.id}"
+        -- key code 51 -- 51 is the key code for the delete key
+        -- key code 51
+        -- keystroke "#{article.id}"
       end tell
     APPLESCRIPT
 
     `osascript -e '#{script}'`
 
     AsHelper.press_enter
-    sleep(0.2)
-    true
+    AsHelper.press_enter
   end
 end
