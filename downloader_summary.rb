@@ -28,7 +28,6 @@ class DownloaderSummary
     AsHelper.bypass_botcheck
     close_all_tabs
     sleep(1)
-    Launchy.open('https://google.com')
 
     raise 'Bypassed botcheck.'
   end
