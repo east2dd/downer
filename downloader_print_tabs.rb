@@ -30,9 +30,11 @@ class DownloaderPrintTabs
 
     puts "... Downing: #{tab_id} | #{article}"
 
+    sleep(1)
+
     # print_pdf(article)
-    save_pdf(article)
-    sleep(0.1)
+    # save_pdf(article)
+    # sleep(0.1)
 
     # if last tab, wait for a while
     return unless tab_id == context.tabs.first[0]
