@@ -23,7 +23,7 @@ class DownloaderOpenTabs
 
     open_tabs_at = Time.now
 
-    wait_for_all_tabs_to_finish_loading
+    AsHelper.chrome_tabs_wait_until_loaded
 
     wait_duration = (Time.now - open_tabs_at) / 2
 
@@ -44,31 +44,6 @@ class DownloaderOpenTabs
       article = Article.new(article_data)
       open_and_build_tabs(article)
     end
-  end
-
-  def wait_for_all_tabs_to_finish_loading
-    script = <<~APPLESCRIPT
-      tell application "Google Chrome"
-        set allTabsLoaded to false
-        repeat until allTabsLoaded is true
-          set allTabsLoaded to true
-          repeat with theWindow in windows
-            repeat with theTab in tabs of theWindow
-              if loading of theTab is true then
-                set allTabsLoaded to false
-                exit repeat
-              end if
-            end repeat
-          end repeat
-
-          if allTabsLoaded is false then
-            delay 1
-          end if
-        end repeat
-      end tell
-    APPLESCRIPT
-
-    `osascript -e '#{script}'`
   end
 
   def open_and_build_tabs(article)

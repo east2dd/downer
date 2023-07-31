@@ -1,6 +1,31 @@
 module AsHelper
   extend self
 
+  def chrome_tabs_wait_until_loaded
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        set allTabsLoaded to false
+        repeat until allTabsLoaded is true
+          set allTabsLoaded to true
+          repeat with theWindow in windows
+            repeat with theTab in tabs of theWindow
+              if loading of theTab is true then
+                set allTabsLoaded to false
+                exit repeat
+              end if
+            end repeat
+          end repeat
+
+          if allTabsLoaded is false then
+            delay 2
+          end if
+        end repeat
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
   def chrome_tabs_count
     script = <<~APPLESCRIPT
       tell application "Google Chrome"
