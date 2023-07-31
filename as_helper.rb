@@ -1,6 +1,30 @@
 module AsHelper
   extend self
 
+  def bypass_botcheck
+    sleep(5)
+    script = <<~APPLESCRIPT
+      tell application "System Events"
+        keystroke tab
+        delay 0.5
+        keystroke space
+        delay 0.5
+      end tell
+    APPLESCRIPT
+
+    6.times do |_index|
+      `osascript -e '#{script}'`
+    end
+
+    sleep(15)
+  end
+
+  def close_tabs(tab_ids)
+    tab_ids.each do |tab_id|
+      close_tab_by_id(tab_id)
+    end
+  end
+
   def chrome_tabs_wait_until_loaded
     script = <<~APPLESCRIPT
       tell application "Google Chrome"

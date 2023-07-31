@@ -15,9 +15,28 @@ class DownloaderSummary
     return if context.tabs.count == 0
 
     print_summary
+    check_bot
+    finalize_download
   end
 
   private
+
+  def check_bot
+    return if context.download_count > 0
+
+    puts 'x Action Required: Bot checking...'
+    AsHelper.bypass_botcheck
+    close_all_tabs
+    sleep(1)
+    Launchy.open('https://google.com')
+
+    raise 'Bypassed botcheck.'
+  end
+
+  def close_all_tabs
+    tab_ids = context.tabs.map { |tab| tab[0] }
+    AsHelper.close_tabs(tab_ids)
+  end
 
   def print_summary
     context.tabs.each do |tab|
@@ -36,7 +55,9 @@ class DownloaderSummary
 
     puts "  ~ Summary: #{context.download_count} downloaded, #{context.missed_download_count} missed"
     puts ''
+  end
 
+  def finalize_download
     if context.missed_download_count > 2
       AsHelper.close_chrome
       sleep(1)

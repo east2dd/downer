@@ -12,7 +12,6 @@ class DownloaderMoveFiles
     return true if context.tabs.count == 0
 
     wait_download
-
     move_files
   end
 
@@ -20,11 +19,14 @@ class DownloaderMoveFiles
 
   def wait_download
     all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
-    pdf_file_count = Dir["#{Article::DOWNLOAD_DIR}/*.pdf"].count
 
-    tmp_missing_count = all_file_count - pdf_file_count
+    tmp_missing_count = all_file_count - temp_file_count
 
     sleep(tmp_missing_count * 1)
+  end
+
+  def temp_file_count
+    Dir["#{Article::DOWNLOAD_DIR}/*.pdf"].count
   end
 
   def build_file_map
