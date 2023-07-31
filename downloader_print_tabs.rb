@@ -11,12 +11,12 @@ class DownloaderPrintTabs
       tab = tab_by_id(tab_id)
 
       if tab.nil? || !ensure_pdf_page
-        AsHelper.close_tab_by_id(tab_id)
+        # AsHelper.close_tab_by_id(tab_id)
         next
       end
 
-      download_tab(tab)
-      AsHelper.close_tab_by_id(tab_id)
+      # download_tab(tab)
+      # AsHelper.close_tab_by_id(tab_id)
     end
   end
 
@@ -30,11 +30,8 @@ class DownloaderPrintTabs
 
     puts "... Downing: #{tab_id} | #{article}"
 
-    sleep(1)
-
-    # print_pdf(article)
-    # save_pdf(article)
-    # sleep(0.1)
+    save_pdf(article)
+    sleep(0.1)
 
     # if last tab, wait for a while
     return unless tab_id == context.tabs.first[0]

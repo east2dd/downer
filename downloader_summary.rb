@@ -58,6 +58,8 @@ class DownloaderSummary
   end
 
   def finalize_download
+    close_all_tabs
+
     if context.missed_download_count > 2
       AsHelper.close_chrome
       sleep(1)
