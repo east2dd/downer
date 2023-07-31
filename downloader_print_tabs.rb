@@ -43,6 +43,7 @@ class DownloaderPrintTabs
 
   def ensure_pdf_page
     current_url = AsHelper.current_tab_url
+    return false if pdf_craft_url?(current_url)
     return true if printable_pdf_url?(current_url)
     return false unless current_url.start_with? 'https://www.sciencedirect.com/'
 
@@ -50,6 +51,10 @@ class DownloaderPrintTabs
     bypass_botcheck
 
     raise 'Bypassed botcheck.'
+  end
+
+  def pdf_craft_url?(url)
+    url.start_with? 'https://pdf.sciencedirectassets.com/craft'
   end
 
   def printable_pdf_url?(url)
