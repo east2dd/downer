@@ -72,5 +72,8 @@ class DownloaderSummary
 
     AsHelper.close_chrome
     sleep(1)
+
+    Launchy.open('https://google.com')
+    sleep(1)
   end
 end
