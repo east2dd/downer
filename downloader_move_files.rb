@@ -56,7 +56,7 @@ class DownloaderMoveFiles
     sleep(2)
     puts '~ Waiting: craft pass...'
     AsHelper.bypass_botcheck
-    sleep(1)
+    sleep(4)
   end
 
   def pdf_bot_url?
