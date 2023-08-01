@@ -64,7 +64,7 @@ class DownloaderMoveFiles
     return false unless current_url.start_with? 'https://www.sciencedirect.com/'
 
     uri = URI.parse(current_url)
-    return false if uri.path.end_with? '/pdfft'
+    return false if uri.path.end_with?('/pdfft') || uri.path.end_with?('/pdf')
 
     true
   end
