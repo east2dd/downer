@@ -19,7 +19,8 @@ class DownloaderMoveFiles
 
   def wait_download
     if pdf_craft_url?
-      puts 'Waiting: 10 seconds for craft url'
+      sleep(5)
+      puts 'Waiting: 10 seconds for craft pass'
       AsHelper.bypass_botcheck
       sleep(10)
     end
