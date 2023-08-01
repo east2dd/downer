@@ -23,7 +23,12 @@ class DownloaderSummary
 
   def check_bot
     return if context.download_count > 0
-    return unless pdf_bot_url?
+
+    unless pdf_bot_url?
+      raise 'Something went wrong, retry!'
+
+      return
+    end
 
     puts 'x Action Required: Bot checking...'
 
