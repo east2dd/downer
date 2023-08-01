@@ -59,13 +59,9 @@ class DownloaderSummary
   def finalize_download
     close_all_tabs
 
-    if context.missed_download_count > 2
-      AsHelper.close_chrome
-      sleep(1)
-    end
+    return unless context.missed_download_count > 2
 
-    return if AsHelper.chrome_tabs_count > 0
-
-    Launchy.open('https://google.com')
+    AsHelper.close_chrome
+    sleep(1)
   end
 end

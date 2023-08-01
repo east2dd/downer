@@ -10,6 +10,6 @@ require_relative 'downloader_summary'
 class DownloaderOrganizer
   include Interactor::Organizer
 
-  # organize DownloadArticlePdf
-  organize DownloaderBuildArticles, DownloaderOpenTabs, DownloaderPrintTabs, DownloaderMoveFiles, DownloaderSummary
+  # DownloaderPrintTabs - save files in PDF if chrome is opening PDF
+  organize DownloaderBuildArticles, DownloaderOpenTabs, DownloaderMoveFiles, DownloaderSummary
 end

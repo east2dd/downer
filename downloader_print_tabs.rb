@@ -11,12 +11,12 @@ class DownloaderPrintTabs
       tab = tab_by_id(tab_id)
 
       if tab.nil? || !ensure_pdf_page
-        # AsHelper.close_tab_by_id(tab_id)
+        AsHelper.close_tab_by_id(tab_id)
         next
       end
 
-      # download_tab(tab)
-      # AsHelper.close_tab_by_id(tab_id)
+      download_tab(tab)
+      AsHelper.close_tab_by_id(tab_id)
     end
   end
 
@@ -30,6 +30,7 @@ class DownloaderPrintTabs
 
     puts "... Downing: #{tab_id} | #{article}"
 
+    # print_pdf(article)
     save_pdf(article)
     sleep(0.1)
 
@@ -44,15 +45,12 @@ class DownloaderPrintTabs
     current_url = AsHelper.current_tab_url
     return false if pdf_craft_url?(current_url)
     return true if printable_pdf_url?(current_url)
+    return false unless current_url.start_with? 'https://www.sciencedirect.com/'
 
-    # return false unless current_url.start_with? 'https://www.sciencedirect.com/'
+    puts 'x Action Required: Bot checking...'
+    bypass_botcheck
 
-    # puts 'x Action Required: Bot checking...'
-    # bypass_botcheck
-
-    # raise 'Bypassed botcheck.'
-
-    true
+    raise 'Bypassed botcheck.'
   end
 
   def pdf_craft_url?(url)
@@ -61,6 +59,34 @@ class DownloaderPrintTabs
 
   def printable_pdf_url?(url)
     url.start_with? 'https://pdf.sciencedirectassets.com'
+  end
+
+  def close_all_tabs
+    context.tabs.each do |tab|
+      tab_id = tab[0]
+
+      AsHelper.close_tab_by_id(tab_id)
+    end
+  end
+
+  def bypass_botcheck
+    sleep(5)
+    script = <<~APPLESCRIPT
+      tell application "System Events"
+        keystroke tab
+        delay 0.5
+        keystroke space
+        delay 0.5
+      end tell
+    APPLESCRIPT
+
+    6.times do |_index|
+      `osascript -e '#{script}'`
+    end
+
+    sleep(15)
+
+    close_all_tabs
   end
 
   def tab_by_id(id)
