@@ -43,7 +43,7 @@ class DownloaderSummary
   end
 
   def pdf_craft_url?
-    AsHelper.current_url.start_with? 'https://pdf.sciencedirectassets.com/craft'
+    AsHelper.current_tab_url.start_with? 'https://pdf.sciencedirectassets.com/craft'
   end
 
   def print_summary
