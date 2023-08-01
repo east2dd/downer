@@ -56,7 +56,7 @@ task :download do
   puts 'Start downloading...'
   puts '--------------------------------'
 
-  CsvDownloader.new(options[:input_file], 16).call
+  CsvDownloader.new(options[:input_file], 20).call
 end
 
 # rake csv -- -f article_list.csv -p ScienceDirect -c agriculture -u https://www.sciencedirect.com/
