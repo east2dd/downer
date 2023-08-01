@@ -33,7 +33,7 @@ class DownloaderMoveFiles
   end
 
   def files_wait_seconds(file_count)
-    seconds_per_file = 1
+    seconds_per_file = 0.6
 
     file_count * seconds_per_file
   end
