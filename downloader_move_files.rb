@@ -45,7 +45,7 @@ class DownloaderMoveFiles
     sleep(5)
 
     AsHelper.bypass_botcheck
-    sleep(20)
+    sleep(15)
 
     bypass_craft_page
   end
@@ -60,7 +60,13 @@ class DownloaderMoveFiles
   end
 
   def pdf_bot_url?
-    AsHelper.current_tab_url.start_with? 'https://www.sciencedirect.com/'
+    current_url = AsHelper.current_tab_url
+    return false unless current_url.start_with? 'https://www.sciencedirect.com/'
+
+    uri = URI.parse(current_url)
+    return false if uri.path.end_with? '/pdfft'
+
+    true
   end
 
   def pdf_craft_url?

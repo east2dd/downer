@@ -28,7 +28,7 @@ class DownloaderSummary
     sleep(5)
 
     AsHelper.bypass_botcheck
-    sleep(20)
+    sleep(10)
 
     bypass_craft_page
 
