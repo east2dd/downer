@@ -2,7 +2,6 @@ module AsHelper
   extend self
 
   def bypass_botcheck
-    sleep(5)
     script = <<~APPLESCRIPT
       tell application "System Events"
         keystroke tab
@@ -15,8 +14,6 @@ module AsHelper
     6.times do |_index|
       `osascript -e '#{script}'`
     end
-
-    sleep(15)
   end
 
   def close_tabs(tab_ids)

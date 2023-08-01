@@ -14,6 +14,8 @@ class DownloaderSummary
     context.missed_article_list ||= []
     return if context.tabs.count == 0
 
+    sleep(5) if pdf_craft_url?
+
     print_summary
     check_bot
     finalize_download
@@ -25,7 +27,10 @@ class DownloaderSummary
     return if context.download_count > 0
 
     puts 'x Action Required: Bot checking...'
+
+    sleep(5)
     AsHelper.bypass_botcheck
+    sleep(15)
     close_all_tabs
     sleep(1)
 
@@ -35,6 +40,10 @@ class DownloaderSummary
   def close_all_tabs
     tab_ids = context.tabs.map { |tab| tab[0] }
     AsHelper.close_tabs(tab_ids)
+  end
+
+  def pdf_craft_url?
+    AsHelper.current_url.start_with? 'https://pdf.sciencedirectassets.com/craft'
   end
 
   def print_summary
