@@ -18,7 +18,10 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    sleep(3) if pdf_craft_url?
+    if pdf_craft_url?
+      puts 'Waiting: 3 seconds for craft url'
+      sleep(3)
+    end
 
     all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
 
@@ -26,7 +29,7 @@ class DownloaderMoveFiles
 
     tmp_missing_count = all_file_count - temp_file_count
 
-    puts "Waiting: #{temp_file_count}"
+    puts "Waiting: #{temp_file_count} seconds for missing files"
     sleep(tmp_missing_count)
   end
 
