@@ -33,7 +33,7 @@ class DownloaderMoveFiles
   end
 
   def files_wait_seconds(file_count)
-    seconds_per_file = 1.5
+    seconds_per_file = 1
 
     file_count * seconds_per_file
   end
@@ -42,10 +42,10 @@ class DownloaderMoveFiles
     return unless pdf_bot_url?
 
     puts 'x Action Required: Bot checking...'
-    sleep(5)
+    sleep(4)
 
     AsHelper.bypass_botcheck
-    sleep(15)
+    sleep(12)
 
     bypass_craft_page
   end

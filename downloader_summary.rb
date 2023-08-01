@@ -25,7 +25,7 @@ class DownloaderSummary
     return if context.download_count > 0
 
     puts 'x Action Required: Bot checking...'
-    sleep(5)
+    sleep(4)
 
     AsHelper.bypass_botcheck
     sleep(10)
