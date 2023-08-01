@@ -32,6 +32,8 @@ class DownloaderMoveFiles
       bypass_craft_page
     end
 
+    sleep(4) if context.craft_page
+
     all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
 
     tmp_missing_count = all_file_count - temp_file_count
@@ -59,6 +61,7 @@ class DownloaderMoveFiles
     sleep(12)
 
     bypass_craft_page
+    sleep(4)
   end
 
   def bypass_craft_page
@@ -69,7 +72,6 @@ class DownloaderMoveFiles
     sleep(2)
     puts '~ Waiting: craft pass...'
     AsHelper.bypass_botcheck
-    sleep(4)
   end
 
   def pdf_bot_url?
