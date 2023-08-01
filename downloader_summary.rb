@@ -42,7 +42,7 @@ class DownloaderSummary
   end
 
   def close_all_tabs
-    tab_ids = context.tabs.map { |tab| tab[0] }
+    tab_ids = context.tabs.reverse.map { |tab| tab[0] }
     AsHelper.close_tabs(tab_ids)
   end
 
