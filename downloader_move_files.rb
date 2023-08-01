@@ -18,12 +18,13 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    sleep(3)
+    sleep(2)
 
     if pdf_craft_url?
-      puts 'Waiting: 3 seconds for craft pass'
+      sleep(2)
+      puts 'Waiting: 2 seconds for craft pass'
       AsHelper.bypass_botcheck
-      sleep(3)
+      sleep(2)
     end
 
     all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
