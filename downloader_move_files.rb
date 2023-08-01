@@ -29,8 +29,8 @@ class DownloaderMoveFiles
 
     tmp_missing_count = all_file_count - temp_file_count
 
-    puts "Waiting: #{temp_file_count} seconds for missing files"
-    sleep(tmp_missing_count)
+    puts "Waiting: #{temp_file_count * 2} seconds for missing files"
+    sleep(tmp_missing_count * 2)
   end
 
   def pdf_craft_url?
