@@ -53,7 +53,7 @@ class DownloaderMoveFiles
   def bypass_craft_page
     return unless pdf_craft_url?
 
-    sleep(2)
+    sleep(4)
     puts '~ Waiting: craft pass...'
     AsHelper.bypass_botcheck
     sleep(4)

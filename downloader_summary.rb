@@ -28,7 +28,7 @@ class DownloaderSummary
     sleep(4)
 
     AsHelper.bypass_botcheck
-    sleep(10)
+    sleep(8)
 
     bypass_craft_page
 
@@ -43,7 +43,7 @@ class DownloaderSummary
     puts '~ Waiting: craft pass...'
     AsHelper.bypass_botcheck
 
-    sleep(10)
+    sleep(8)
   end
 
   def print_summary
