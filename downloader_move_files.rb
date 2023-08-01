@@ -9,6 +9,9 @@ class DownloaderMoveFiles
   CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
 
   def call
+    context.bot_page = false
+    context.craft_page = false
+
     return true if context.tabs.count == 0
 
     wait_download
@@ -22,6 +25,12 @@ class DownloaderMoveFiles
 
     bypass_bot_page
     bypass_craft_page
+
+    if !context.bot_page && context.craft_page
+      AsHelper.close_tab_by_id(AsHelper.current_tab_id)
+
+      bypass_craft_page
+    end
 
     all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
 
@@ -41,6 +50,8 @@ class DownloaderMoveFiles
   def bypass_bot_page
     return unless pdf_bot_url?
 
+    context.bot_page = true
+
     puts 'x Action Required: Bot checking...'
     sleep(2)
 
@@ -52,6 +63,8 @@ class DownloaderMoveFiles
 
   def bypass_craft_page
     return unless pdf_craft_url?
+
+    context.craft_page = true
 
     sleep(2)
     puts '~ Waiting: craft pass...'
