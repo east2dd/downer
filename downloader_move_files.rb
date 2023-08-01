@@ -18,6 +18,8 @@ class DownloaderMoveFiles
   private
 
   def wait_download
+    sleep(3) if pdf_craft_url?
+
     all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
 
     sleep(3) if all_file_count == 0
@@ -26,6 +28,10 @@ class DownloaderMoveFiles
 
     puts "Waiting: #{temp_file_count}"
     sleep(tmp_missing_count)
+  end
+
+  def pdf_craft_url?
+    AsHelper.current_tab_url.start_with? 'https://pdf.sciencedirectassets.com/craft'
   end
 
   def temp_file_count
