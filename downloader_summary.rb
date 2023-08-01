@@ -25,8 +25,6 @@ class DownloaderSummary
     return if context.download_count > 0
 
     unless pdf_bot_url?
-      AsHelper.bypass_botcheck
-      sleep(5)
       raise 'Something went wrong, retry!'
 
       return
