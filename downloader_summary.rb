@@ -34,18 +34,9 @@ class DownloaderSummary
     AsHelper.bypass_botcheck
     sleep(10)
 
-    close_all_tabs
+    close_chrome_and_relaunch
 
     raise 'Bypassed botcheck.'
-  end
-
-  def close_all_tabs
-    tab_ids = context.tabs.reverse.map { |tab| tab[0] }
-    AsHelper.close_tabs(tab_ids)
-  end
-
-  def pdf_bot_url?
-    AsHelper.current_tab_url.start_with? 'https://www.sciencedirect.com/'
   end
 
   def print_summary
@@ -70,12 +61,25 @@ class DownloaderSummary
   def finalize_download
     close_all_tabs
 
-    return unless context.missed_download_count > 2
+    return unless context.missed_download_count > 1
 
+    close_chrome_and_relaunch
+  end
+
+  def close_chrome_and_relaunch
     AsHelper.close_chrome
     sleep(1)
 
     Launchy.open('https://google.com')
     sleep(1)
+  end
+
+  def close_all_tabs
+    tab_ids = context.tabs.reverse.map { |tab| tab[0] }
+    AsHelper.close_tabs(tab_ids)
+  end
+
+  def pdf_bot_url?
+    AsHelper.current_tab_url.start_with? 'https://www.sciencedirect.com/'
   end
 end
