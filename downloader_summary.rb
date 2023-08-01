@@ -24,12 +24,6 @@ class DownloaderSummary
   def check_bot
     return if context.download_count > 0
 
-    unless pdf_bot_url?
-      raise 'Something went wrong, retry!'
-
-      return
-    end
-
     puts 'x Action Required: Bot checking...'
     AsHelper.bypass_botcheck
     sleep(10)
