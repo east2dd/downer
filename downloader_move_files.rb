@@ -22,6 +22,7 @@ class DownloaderMoveFiles
 
     tmp_missing_count = all_file_count - temp_file_count
 
+    puts "Waiting: #{temp_file_count}"
     sleep(tmp_missing_count * 1)
   end
 

@@ -21,14 +21,7 @@ class DownloaderOpenTabs
 
     return unless context.tabs.count.positive?
 
-    open_tabs_at = Time.now
-
     AsHelper.chrome_tabs_wait_until_loaded
-
-    wait_duration = (Time.now - open_tabs_at) / 2
-
-    puts "Waiting: #{wait_duration}"
-    sleep(wait_duration)
   end
 
   private
