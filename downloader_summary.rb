@@ -15,13 +15,13 @@ class DownloaderSummary
     return if context.tabs.count == 0
 
     print_summary
-    check_bot
+    bypass_bot_page
     finalize_download
   end
 
   private
 
-  def check_bot
+  def bypass_bot_page
     return if context.download_count > 0
 
     puts 'x Action Required: Bot checking...'
