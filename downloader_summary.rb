@@ -29,9 +29,20 @@ class DownloaderSummary
     AsHelper.bypass_botcheck
     sleep(10)
 
+    bypass_craft_page
+
     close_chrome_and_relaunch
 
     raise 'Bypassed botcheck.'
+  end
+
+  def bypass_craft_page
+    return unless pdf_craft_url?
+
+    sleep(2)
+    puts '~ Waiting: craft pass...'
+    AsHelper.bypass_botcheck
+    sleep(1)
   end
 
   def print_summary
@@ -59,6 +70,10 @@ class DownloaderSummary
     return unless context.missed_download_count > 1
 
     close_chrome_and_relaunch
+  end
+
+  def pdf_craft_url?
+    AsHelper.current_tab_url.start_with? 'https://pdf.sciencedirectassets.com/craft'
   end
 
   def close_chrome_and_relaunch
