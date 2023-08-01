@@ -65,7 +65,7 @@ class Reporter
     return if article.file_size / 1024 > 200 # file size in kb
     return if article.page_count > 5
 
-    @one_page_article_list << article.to_a if article.page_count == 1
+    @one_page_article_list << article.to_a if article.page_count < 2
     @two_page_article_list << article.to_a if article.page_count == 2
 
     return if article.page_count > 1
