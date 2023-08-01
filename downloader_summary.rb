@@ -30,7 +30,6 @@ class DownloaderSummary
       return
     end
 
-    sleep(5)
     puts 'x Action Required: Bot checking...'
     AsHelper.bypass_botcheck
     sleep(10)
