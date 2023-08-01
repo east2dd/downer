@@ -11,7 +11,7 @@ module AsHelper
       end tell
     APPLESCRIPT
 
-    5.times do |_index|
+    4.times do |_index|
       `osascript -e '#{script}'`
     end
   end
