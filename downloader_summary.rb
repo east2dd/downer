@@ -14,7 +14,7 @@ class DownloaderSummary
     context.missed_article_list ||= []
     return if context.tabs.count == 0
 
-    sleep(5) if pdf_craft_url?
+    sleep(3) if pdf_craft_url?
 
     print_summary
     check_bot
