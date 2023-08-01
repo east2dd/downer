@@ -18,7 +18,7 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    sleep(2)
+    sleep(4)
 
     bypass_bot_page
     bypass_craft_page
@@ -42,7 +42,7 @@ class DownloaderMoveFiles
     return unless pdf_bot_url?
 
     puts 'x Action Required: Bot checking...'
-    sleep(4)
+    sleep(2)
 
     AsHelper.bypass_botcheck
     sleep(12)
@@ -53,7 +53,7 @@ class DownloaderMoveFiles
   def bypass_craft_page
     return unless pdf_craft_url?
 
-    sleep(4)
+    sleep(2)
     puts '~ Waiting: craft pass...'
     AsHelper.bypass_botcheck
     sleep(4)
