@@ -26,8 +26,9 @@ class DownloaderSummary
 
     puts 'x Action Required: Bot checking...'
     sleep(5)
+
     AsHelper.bypass_botcheck
-    sleep(10)
+    sleep(20)
 
     bypass_craft_page
 
@@ -39,10 +40,10 @@ class DownloaderSummary
   def bypass_craft_page
     return unless pdf_craft_url?
 
-    sleep(2)
     puts '~ Waiting: craft pass...'
     AsHelper.bypass_botcheck
-    sleep(1)
+
+    sleep(10)
   end
 
   def print_summary
