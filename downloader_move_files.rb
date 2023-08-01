@@ -18,12 +18,13 @@ class DownloaderMoveFiles
   private
 
   def wait_download
+    sleep(1)
     all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
 
     tmp_missing_count = all_file_count - temp_file_count
 
     puts "Waiting: #{temp_file_count}"
-    sleep(tmp_missing_count * 1)
+    sleep(tmp_missing_count)
   end
 
   def temp_file_count
