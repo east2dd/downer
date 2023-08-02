@@ -50,6 +50,10 @@ class Article
     "#{@id}, #{title}"
   end
 
+  def to_extra_s
+    "#{@id}, #{title}, #{destination_file_path}"
+  end
+
   def to_a
     data
   end

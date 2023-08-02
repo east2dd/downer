@@ -33,6 +33,7 @@ class Reporter
 
     delete_wrong_files
     # build_extra_csv
+    print_total_summary
   end
 
   private
@@ -44,6 +45,24 @@ class Reporter
 
     # build_extra_csv
     print_summary
+  end
+
+  def print_total_summary
+    puts '--------------------------------'
+
+    puts 'Two pages:'
+    @two_page_article_list.each do |item|
+      puts Article.new(item).to_extra_s
+    end
+
+    puts '--------------------------------'
+
+    puts 'Invalid PDF'
+    @invalid_article_list.each do |item|
+      puts Article.new(item).to_extra_s
+    end
+
+    puts '--------------------------------'
   end
 
   def process_article_item(article_item)
@@ -85,21 +104,6 @@ class Reporter
     puts "  ~ Two pages: #{@two_page_article_list.count}"
     puts "  ~ Invalid PDF: #{@invalid_article_list.count}"
     puts ''
-    puts '--------------------------------'
-
-    puts 'Two pages:'
-    @two_page_article_list.each do |item|
-      puts Article.new(item)
-    end
-
-    puts '--------------------------------'
-
-    puts 'Invalid PDF'
-    @invalid_article_list.each do |item|
-      puts Article.new(item)
-    end
-
-    puts '--------------------------------'
   end
 
   def delete_wrong_files
