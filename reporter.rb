@@ -88,8 +88,8 @@ class Reporter
     puts '--------------------------------'
 
     puts 'Two pages:'
-    @two_page_article_list.each do |_item|
-      puts Article.new(page)
+    @two_page_article_list.each do |item|
+      puts Article.new(item)
     end
 
     puts '--------------------------------'
