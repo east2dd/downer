@@ -19,6 +19,7 @@ class Reporter
 
     @one_page_article_list = []
     @two_page_article_list = []
+    @invalid_article_list = []
 
     @wrongable_article_list = []
   end
@@ -65,8 +66,9 @@ class Reporter
     return if article.file_size / 1024 > 200 # file size in kb
     return if article.page_count > 5
 
-    @one_page_article_list << article.to_a if article.page_count < 2
+    @one_page_article_list << article.to_a if article.page_count == 1
     @two_page_article_list << article.to_a if article.page_count == 2
+    @invalid_article_list << article.to_a if article.page_count == -1
 
     return if article.page_count > 1
 
@@ -81,6 +83,7 @@ class Reporter
     puts "  ~ Download missed: #{@missed_article_list.count}"
     puts "  ~ One page: #{@one_page_article_list.count}"
     puts "  ~ Two pages: #{@two_page_article_list.count}"
+    puts "  ~ Invalid PDF: #{@invalid_article_list.count}"
     puts ''
     puts '--------------------------------'
   end

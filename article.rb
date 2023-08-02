@@ -82,11 +82,15 @@ class Article
   def fetch_pdf_reader
     return nil unless File.exist?(destination_file_path)
 
-    PDF::Reader.new(destination_file_path)
+    begin
+      PDF::Reader.new(destination_file_path)
+    rescue StandardError
+      nil
+    end
   end
 
   def page_count
-    @page_count ||= pdf_reader&.page_count
+    @page_count ||= pdf_reader&.page_count || -1
   end
 
   def first_page_text
