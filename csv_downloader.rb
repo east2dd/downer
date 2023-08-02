@@ -36,9 +36,27 @@ class CsvDownloader
 
   private
 
+  def processable_article_list(article_list)
+    article_list.filter do |item|
+      article = Article.new(item)
+      processable_article?(article)
+    end
+  end
+
+  def processable_article?(article)
+    if article.category == 'Materials Science' && article.publication == 'Acta Crystallographica Section E Crystallographic Communications'
+      return false
+    end
+
+    true
+  end
+
   def download(article_list)
     retry_attempts = 3
-    context = Downloader.new(article_list).download
+
+    list = processable_article_list(article_list)
+    context = Downloader.new(list).download
+
     @download_count += context.download_count
     @total_download_count += context.total_download_count
     @missed_article_list += context.missed_article_list
