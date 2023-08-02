@@ -50,13 +50,6 @@ class Reporter
   def print_total_summary
     puts '--------------------------------'
 
-    puts 'Two pages:'
-    @two_page_article_list.each do |item|
-      puts Article.new(item).to_extra_s
-    end
-
-    puts '--------------------------------'
-
     puts 'Invalid PDF'
     @invalid_article_list.each do |item|
       puts Article.new(item).to_extra_s
@@ -82,14 +75,14 @@ class Reporter
   def process_downloaded_article(article)
     @download_count += 1
 
-    return if article.file_size / 1024 > 200 # file size in kb
+    return if article.file_size / 1024 > 150 # file size in kb
     return if article.page_count > 5
 
     @one_page_article_list << article.to_a if article.page_count == 1
     @two_page_article_list << article.to_a if article.page_count == 2
     @invalid_article_list << article.to_a if article.page_count == -1
 
-    return if article.page_count > 1 && article.page_count != -1
+    return if article.page_count > 2 && article.page_count != -1
 
     @wrongable_article_list << article.to_extra_a
   end
