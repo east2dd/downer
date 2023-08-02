@@ -2,16 +2,33 @@ module AsHelper
   extend self
 
   def bypass_botcheck
+    bypass_times(4)
+  end
+
+  def chrome_tabs_open_previous_tab
+    press_ctrl_shift_tab
+  end
+
+  def press_ctrl_shift_tab
     script = <<~APPLESCRIPT
       tell application "System Events"
-        keystroke tab
-        delay 0.5
-        keystroke space
-        delay 0.5
+        keystroke (tab) using {control down, shift down}
       end tell
     APPLESCRIPT
 
-    4.times do |_index|
+    `osascript -e '#{script}'`
+  end
+
+  def bypass_times(i)
+    script = <<~APPLESCRIPT
+      tell application "System Events"
+        keystroke tab
+        delay 0.2
+        keystroke space
+      end tell
+    APPLESCRIPT
+
+    i.times do |_index|
       `osascript -e '#{script}'`
     end
   end

@@ -23,28 +23,31 @@ class DownloaderMoveFiles
   def wait_download
     sleep(4)
 
+    all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
+    tmp_missing_count = all_file_count - temp_file_count
+    craft_pages_count = context.tabs.count - all_file_count
+    craft_times = [craft_pages_count].min
+
     bypass_bot_page
-    bypass_craft_page
+    bypass_craft_page(0, 2)
 
     if !context.bot_page && context.craft_page
-      AsHelper.close_tab_by_id(AsHelper.current_tab_id)
+      craft_times.times do |_i|
+        AsHelper.chrome_tabs_open_previous_tab
 
-      bypass_craft_page
+        bypass_craft_page(0, 0)
+      end
     end
 
-    sleep(4) if context.craft_page
-
-    all_file_count = Dir["#{Article::DOWNLOAD_DIR}/*"].count
-
-    tmp_missing_count = all_file_count - temp_file_count
+    sleep(2) if context.craft_page
 
     seconds = files_wait_seconds(tmp_missing_count)
-    puts "Waiting: #{seconds} seconds for missing files"
+    puts "~ Waiting: #{seconds} seconds for missing files..."
     sleep(seconds)
   end
 
   def files_wait_seconds(file_count)
-    seconds_per_file = 0.6
+    seconds_per_file = 0.5
 
     file_count * seconds_per_file
   end
@@ -60,18 +63,19 @@ class DownloaderMoveFiles
     AsHelper.bypass_botcheck
     sleep(12)
 
-    bypass_craft_page
-    sleep(4)
+    bypass_craft_page(0, 4)
   end
 
-  def bypass_craft_page
+  def bypass_craft_page(seconds_before = 2, seconds_after = 4)
     return unless pdf_craft_url?
 
     context.craft_page = true
 
-    sleep(2)
     puts '~ Waiting: craft pass...'
-    AsHelper.bypass_botcheck
+
+    sleep(seconds_before)
+    AsHelper.bypass_times(2)
+    sleep(seconds_after)
   end
 
   def pdf_bot_url?

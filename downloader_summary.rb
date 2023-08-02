@@ -34,7 +34,7 @@ class DownloaderSummary
 
     close_chrome_and_relaunch
 
-    raise 'Bypassed botcheck.'
+    raise 'Bypassed botcheck!'
   end
 
   def bypass_craft_page
@@ -66,11 +66,9 @@ class DownloaderSummary
   end
 
   def finalize_download
+    return close_chrome_and_relaunch if context.tabs.count > 24 || context.missed_download_count > 2
+
     close_all_tabs
-
-    return unless context.missed_download_count > 1
-
-    close_chrome_and_relaunch
   end
 
   def pdf_craft_url?
