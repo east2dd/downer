@@ -9,7 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // link.click();
 
     const link = document.querySelector(".ViewPDF a");
-    console.log(link.getAttribute("href"));
-    window.location.href = link.getAttribute("href");
+    if (link) {
+      console.log(link.getAttribute("href"));
+      window.location.href = link.getAttribute("href");
+    } else {
+      console.log("Missing PDF Link!!!");
+      window.location.href = "https://google.com";
+    }
   }, 1000);
 });
