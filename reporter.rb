@@ -86,6 +86,20 @@ class Reporter
     puts "  ~ Invalid PDF: #{@invalid_article_list.count}"
     puts ''
     puts '--------------------------------'
+
+    puts 'Two pages:'
+    @two_page_article_list.each do |_item|
+      puts Article.new(page)
+    end
+
+    puts '--------------------------------'
+
+    puts 'Invalid PDF'
+    @invalid_article_list.each do |item|
+      puts Article.new(item)
+    end
+
+    puts '--------------------------------'
   end
 
   def delete_wrong_files
