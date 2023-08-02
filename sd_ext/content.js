@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = link.getAttribute("href");
     } else {
       console.log("Missing PDF Link!!!");
-      window.location.href = "https://google.com";
     }
   }, 1000);
 });
