@@ -70,7 +70,7 @@ class Reporter
     @two_page_article_list << article.to_a if article.page_count == 2
     @invalid_article_list << article.to_a if article.page_count == -1
 
-    return if article.page_count > 1
+    return if article.page_count > 1 && article.page_count != -1
 
     @wrongable_article_list << article.to_extra_a
   end
