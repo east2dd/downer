@@ -71,6 +71,8 @@ class CsvDownloader
 
     sleep(1)
     retry if retry_attempts > 0
+
+    exit
   end
 
   def print_total_summary
