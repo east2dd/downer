@@ -50,16 +50,34 @@ class DownloaderBypassBot
     context.bot_page = true
 
     puts 'x Action Required: Bot checking...'
+
     sleep(4)
+    files_count_before_bypass = files_count
 
     AsHelper.bypass_botcheck
     sleep(12)
 
+    files_count_after_bypass = files_count
+    bypassed_files_count = files_count_after_bypass - files_count_before_bypass
+
     bypass_craft_page(0, 4)
+
+    return unless require_ip_change?(bypassed_files_count)
+
+    puts 'x Please use different IP address...'
+    exit
+  end
+
+  def require_ip_change?(bypassed_files_count)
+    pdf_main_url?(AsHelper.current_tab_url) && bypassed_files_count.zero?
+  end
+
+  def files_count
+    Dir["#{Article::DOWNLOAD_DIR}/*"].count
   end
 
   def bypass_craft_page(seconds_before = 2, seconds_after = 4)
-    return unless pdf_craft_url?
+    return unless pdf_craft_url?(AsHelper.current_tab_url)
 
     context.craft_page = true
 
@@ -71,20 +89,38 @@ class DownloaderBypassBot
   end
 
   def require_bypass?
-    pdf_bot_url? || pdf_craft_url?
+    current_tab_url = AsHelper.current_tab_url
+
+    sd_bot_url?(current_tab_url) || pdf_craft_url?(current_tab_url)
   end
 
-  def pdf_bot_url?
-    current_url = AsHelper.current_tab_url
-    return false unless current_url.start_with? 'https://www.sciencedirect.com/'
-
-    uri = URI.parse(current_url)
-    return false if uri.path.end_with?('/pdfft') || uri.path.end_with?('/pdf')
-
-    true
+  def sd_bot_url?(url)
+    sd_url?(url) && !sd_pdf_url?(url)
   end
 
-  def pdf_craft_url?
-    AsHelper.current_tab_url.start_with? 'https://pdf.sciencedirectassets.com/craft'
+  def sd_pdf_url?(url)
+    return false unless sd_url?(url)
+
+    uri = URI.parse(url)
+    uri.path.end_with?('/pdfft') || uri.path.end_with?('/pdf')
+  end
+
+  def sd_url?(url)
+    url.start_with? 'https://www.sciencedirect.com/'
+  end
+
+  def pdf_main_url?(url)
+    return false unless pdf_url(url)
+
+    uri = URI.parse(url)
+    uri.path.end_with?('/main.pdf')
+  end
+
+  def pdf_url?(url)
+    url.start_with? 'https://pdf.sciencedirectassets.com/'
+  end
+
+  def pdf_craft_url?(url)
+    url.start_with? 'https://pdf.sciencedirectassets.com/craft'
   end
 end
