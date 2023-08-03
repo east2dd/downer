@@ -109,7 +109,7 @@ class DownloaderBypassBot
   end
 
   def pdf_main_url?(url)
-    return false unless pdf_url(url)
+    return false unless pdf_url?(url)
 
     uri = URI.parse(url)
     uri.path.end_with?('/main.pdf')
