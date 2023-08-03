@@ -13,6 +13,8 @@ class DownloaderBypassBot
     return unless require_bypass?
 
     bypass_bot
+
+    check_ip_blocked
   end
 
   private
@@ -52,24 +54,21 @@ class DownloaderBypassBot
     puts 'x Action Required: Bot checking...'
 
     sleep(4)
-    files_count_before_bypass = files_count
-
     AsHelper.bypass_botcheck
     sleep(12)
 
-    files_count_after_bypass = files_count
-    bypassed_files_count = files_count_after_bypass - files_count_before_bypass
-
     bypass_craft_page(0, 4)
+  end
 
-    return unless require_ip_change?(bypassed_files_count)
+  def check_ip_blocked
+    return unless require_ip_change?
 
     puts 'x Please use different IP address...'
     exit
   end
 
-  def require_ip_change?(bypassed_files_count)
-    pdf_main_url?(AsHelper.current_tab_url) && bypassed_files_count.zero?
+  def require_ip_change?
+    pdf_main_url?(AsHelper.current_tab_url) && files_count.zero?
   end
 
   def files_count
