@@ -14,10 +14,18 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    seconds = files_wait_seconds(temp_missing_count)
+    puts '~ Waiting Download: >'
 
-    puts "~ Waiting: #{seconds} seconds for missing files..."
-    sleep(seconds)
+    wait_seconds = 0
+    loop do
+      sleep(1)
+      max_wait += 1
+
+      break if temp_missing_count == 0
+      break if wait_seconds == 12
+    end
+
+    puts "~ Waiting Download: Done, #{wait_seconds} seconds"
   end
 
   def temp_missing_count
@@ -25,12 +33,6 @@ class DownloaderMoveFiles
     temp_file_count = Dir["#{Article::DOWNLOAD_DIR}/*.pdf"].count
 
     all_file_count - temp_file_count
-  end
-
-  def files_wait_seconds(file_count)
-    seconds_per_file = 1
-
-    file_count * seconds_per_file
   end
 
   def build_file_map

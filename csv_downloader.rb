@@ -89,7 +89,7 @@ class CsvDownloader
     puts ''
     puts "  ~ Download percent: #{download_percent.round(2)}% (#{@total_download_count} / #{@total_count})"
     puts "  ~ Download missed: #{@missed_article_list.count}"
-    puts "  ~ Download speed: #{speed}/h (#{@download_count} downloaded, #{time_in_words} ellapsed)"
+    puts "  ~ Download speed: #{speed}/h (#{@download_count} downloaded, #{time_in_words} elapsed)"
     puts ''
     puts '--------------------------------'
   end
