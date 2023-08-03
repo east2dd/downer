@@ -8,7 +8,7 @@ module AsHelper
 
     result = `osascript -e '#{script}'`.strip # Current Wi-Fi Network: XXXX
 
-    result.split('Current Wi-Fi Network: ').last
+    result.split('Current Wi-Fi Network: ').last.strip
   end
 
   def connect_wifi_network(network_name)
@@ -24,7 +24,9 @@ module AsHelper
   end
 
   def connect_other_network
-    next_network_index = available_wifi_network_names.index(current_wifi_network_name) - 1
+    network = current_wifi_network_name
+    puts "Wifi: Current network is #{network}"
+    next_network_index = available_wifi_network_names.index(network) - 1
 
     next_network = available_wifi_network_names[next_network_index]
 
