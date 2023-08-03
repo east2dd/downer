@@ -18,11 +18,11 @@ class DownloaderMoveFiles
 
     wait_seconds = 0
     loop do
-      sleep(1)
-      wait_seconds += 1
-
       break if temp_missing_count == 0
       break if wait_seconds == 12
+
+      sleep(1)
+      wait_seconds += 1
     end
 
     puts "~ Waiting Download: Done, #{wait_seconds} seconds"
