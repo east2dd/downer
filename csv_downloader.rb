@@ -50,8 +50,9 @@ class CsvDownloader
   end
 
   def processable_article?(article)
-    if article.category == 'Materials Science' && article.publication == 'Acta Crystallographica Section E Crystallographic Communications'
-      return false
+    if article.category == 'Materials Science'
+      return false if article.publication == 'Acta Crystallographica Section E Crystallographic Communications'
+      return false if article.publication == 'IUCrData'
     end
 
     true

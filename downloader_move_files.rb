@@ -14,7 +14,7 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    puts '~ Waiting Download: >'
+    puts '~ Waiting Download: ...'
 
     wait_seconds = 0
     loop do
