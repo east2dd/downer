@@ -1,6 +1,43 @@
 module AsHelper
   extend self
 
+  def application_installed?(app_name)
+    # Use the 'system_profiler' command to get a list of installed applications
+    output = `system_profiler SPApplicationsDataType 2>/dev/null`
+
+    # Check if the application name is present in the output
+    # You can also add additional logic to handle case-insensitivity if needed
+    output.include?(app_name)
+  end
+
+  def open_vpn
+    script = <<~APPLESCRIPT
+      tell application "Private Internet Access"
+        activate
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
+  def close_vpn
+    script = <<~APPLESCRIPT
+      tell application "Private Internet Access"
+        quit
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+
+    return
+    script = <<~APPLESCRIPT
+      set processname to "Private Internet Access"
+      do shell script "killall -9 " & quoted form of processname
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`
+  end
+
   def current_wifi_network_name(card = 'en1')
     script = <<~APPLESCRIPT
       do shell script "networksetup -getairportnetwork #{card}"

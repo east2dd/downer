@@ -21,17 +21,12 @@ class CsvDownloader
     @starts_at = Time.now
 
     CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
-      @retry_attempts = 3
+      @retry_attempts = 4
       download(article_list)
-      next unless @missed_article_list.count > 15
+      next unless @missed_article_list.count > 12
 
-      if @missed_article_list.count > 36
-        puts 'Something went wrong! Exiting...'
-        exit
-      end
-
-      article_list = @missed_article_list
-      @missed_article_list = []
+      article_list = @missed_article_list.take(12)
+      @missed_article_list = @missed_article_list.drop(12)
 
       puts '~ Processing missed articles...'
       download(article_list)
@@ -77,6 +72,7 @@ class CsvDownloader
     sleep(1)
     retry if @retry_attempts > 0
 
+    puts 'x Max retry reached. Exiting...'
     exit
   end
 

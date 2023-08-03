@@ -55,7 +55,7 @@ class DownloaderBypassBot
 
     puts 'x Action Required: Bot checking...'
 
-    sleep(4)
+    sleep(8)
     AsHelper.bypass_botcheck
     sleep(12)
 
@@ -70,11 +70,27 @@ class DownloaderBypassBot
     puts 'x Please use different IP address...'
     puts ''
 
-    AsHelper.safe_connect_other_network
     AsHelper.close_chrome
-    sleep(12)
+    change_ip_address
 
+    sleep(12)
     raise 'Bypass IP blocking!'
+  end
+
+  def change_ip_address
+    return reconnect_vpn if AsHelper.application_installed?('Private Internet Access')
+
+    switch_network
+  end
+
+  def switch_network
+    AsHelper.safe_connect_other_network
+  end
+
+  def reconnect_vpn
+    AsHelper.close_vpn
+    sleep(5)
+    AsHelper.open_vpn
   end
 
   def require_ip_change?
