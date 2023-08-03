@@ -21,6 +21,7 @@ class CsvDownloader
     @starts_at = Time.now
 
     CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
+      @retry_attempts = 3
       download(article_list)
       next unless @missed_article_list.count > 15
 
@@ -52,8 +53,6 @@ class CsvDownloader
   end
 
   def download(article_list)
-    retry_attempts = 3
-
     list = processable_article_list(article_list)
     context = Downloader.new(list).download
 
@@ -63,14 +62,14 @@ class CsvDownloader
 
     print_total_summary
   rescue StandardError => e
-    retry_attempts -= 1
+    @retry_attempts -= 1
 
     puts e.message
     puts e.backtrace
     puts 'x Retrying...'
 
     sleep(1)
-    retry if retry_attempts > 0
+    retry if @retry_attempts > 0
 
     exit
   end
