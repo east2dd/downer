@@ -25,6 +25,11 @@ class CsvDownloader
       download(article_list)
       next unless @missed_article_list.count > 15
 
+      if @missed_article_list.count > 36
+        puts 'Something went wrong! Exiting...'
+        exit
+      end
+
       article_list = @missed_article_list
       @missed_article_list = []
 
