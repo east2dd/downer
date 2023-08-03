@@ -19,7 +19,7 @@ class DownloaderMoveFiles
     wait_seconds = 0
     loop do
       sleep(1)
-      max_wait += 1
+      wait_seconds += 1
 
       break if temp_missing_count == 0
       break if wait_seconds == 12
