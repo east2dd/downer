@@ -65,7 +65,11 @@ class DownloaderBypassBot
   def check_ip_blocked
     return unless require_ip_change?
 
+    puts ''
+    puts 'Breaking:'
     puts 'x Please use different IP address...'
+    puts ''
+
     exit
   end
 
