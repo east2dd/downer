@@ -20,7 +20,7 @@ module AsHelper
   end
 
   def available_wifi_network_names
-    %w[WEMTEQ-SEDANKA US-IL US-SL US-WA US-VA]
+    %w[WEMTEQ-SEDANKA US-IL US-SL US-WA]
   end
 
   def safe_connect_other_network
