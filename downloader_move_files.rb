@@ -14,7 +14,7 @@ class DownloaderMoveFiles
   private
 
   def wait_download
-    seconds = files_wait_seconds(tmp_missing_count)
+    seconds = files_wait_seconds(temp_missing_count)
 
     puts "~ Waiting: #{seconds} seconds for missing files..."
     sleep(seconds)
