@@ -45,6 +45,6 @@ class DownloaderOpenTabs
 
     puts "- Opening: #{tab_id} | #{article}"
     context.tabs << [tab_id, article]
-    sleep(0.1)
+    sleep(0.2)
   end
 end
