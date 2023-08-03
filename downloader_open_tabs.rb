@@ -2,8 +2,6 @@ require 'interactor'
 require 'launchy'
 require_relative 'as_helper'
 
-CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
-
 class DownloaderOpenTabs
   include Interactor
 
@@ -19,7 +17,7 @@ class DownloaderOpenTabs
 
     open_tabs(context.downloadable_article_list)
 
-    return unless context.tabs.count.positive?
+    return context.skip unless context.tabs.count.positive?
 
     AsHelper.chrome_tabs_wait_until_loaded
   end
