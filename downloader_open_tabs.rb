@@ -12,12 +12,12 @@ class DownloaderOpenTabs
 
     if maybe_retrying?
       context.missed_article_list = context.downloadable_article_list
-      return context.skip
+      return context.fail!
     end
 
     open_tabs(context.downloadable_article_list)
 
-    return context.skip unless context.tabs.count.positive?
+    return context.fail! unless context.tabs.count.positive?
 
     AsHelper.chrome_tabs_wait_until_loaded
   end
