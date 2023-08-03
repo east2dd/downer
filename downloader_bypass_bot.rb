@@ -47,7 +47,7 @@ class DownloaderBypassBot
   end
 
   def bypass_bot_page
-    return unless pdf_bot_url?
+    return unless sd_bot_url?
 
     context.bot_page = true
 
