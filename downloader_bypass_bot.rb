@@ -70,7 +70,10 @@ class DownloaderBypassBot
     puts 'x Please use different IP address...'
     puts ''
 
-    exit
+    AsHelper.connect_other_network
+    sleep(12)
+
+    raise 'Bypass IP blocking!'
   end
 
   def require_ip_change?

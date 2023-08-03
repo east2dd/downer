@@ -1,6 +1,37 @@
 module AsHelper
   extend self
 
+  def current_wifi_network_name
+    script = <<~APPLESCRIPT
+      do shell script "networksetup -getairportnetwork en1"
+    APPLESCRIPT
+
+    result = `osascript -e '#{script}'`.strip # Current Wi-Fi Network: XXXX
+
+    result.split('Current Wi-Fi Network: ').last
+  end
+
+  def connect_wifi_network(network_name)
+    script = <<~APPLESCRIPT
+      do shell script "networksetup -setairportnetwork en1 #{network_name} wemteqdev2018"
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`.strip
+  end
+
+  def available_wifi_network_names
+    %w[WEMTEQ-SEDANKA US-IL US-SL US-WA US-VA]
+  end
+
+  def connect_other_network
+    next_network_index = available_wifi_network_names.index(current_wifi_network_name) - 1
+
+    next_network = available_wifi_network_names[next_network_index]
+
+    puts "Wifi: Connecting to #{next_network}"
+    connect_wifi_network(next_network)
+  end
+
   def bypass_botcheck
     bypass_times(4)
   end
