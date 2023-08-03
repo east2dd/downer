@@ -1,9 +1,9 @@
 module AsHelper
   extend self
 
-  def current_wifi_network_name
+  def current_wifi_network_name(card = 'en1')
     script = <<~APPLESCRIPT
-      do shell script "networksetup -getairportnetwork en1"
+      do shell script "networksetup -getairportnetwork #{card}"
     APPLESCRIPT
 
     result = `osascript -e '#{script}'`.strip # Current Wi-Fi Network: XXXX
@@ -11,9 +11,9 @@ module AsHelper
     result.split('Current Wi-Fi Network: ').last.strip
   end
 
-  def connect_wifi_network(network_name)
+  def connect_wifi_network(network_name, card = 'en1')
     script = <<~APPLESCRIPT
-      do shell script "networksetup -setairportnetwork en1 #{network_name} wemteqdev2018"
+      do shell script "networksetup -setairportnetwork #{card} #{network_name} wemteqdev2018"
     APPLESCRIPT
 
     `osascript -e '#{script}'`.strip
@@ -23,15 +23,21 @@ module AsHelper
     %w[WEMTEQ-SEDANKA US-IL US-SL US-WA US-VA]
   end
 
-  def connect_other_network
-    network = current_wifi_network_name
+  def safe_connect_other_network
+    connect_other_network('en1')
+  rescue StandardError
+    connect_other_network('en0')
+  end
+
+  def connect_other_network(card = 'en1')
+    network = current_wifi_network_name(card)
     puts "Wifi: Current network is #{network}"
     next_network_index = available_wifi_network_names.index(network) - 1
 
     next_network = available_wifi_network_names[next_network_index]
 
     puts "Wifi: Connecting to #{next_network}"
-    connect_wifi_network(next_network)
+    connect_wifi_network(next_network, card)
   end
 
   def bypass_botcheck
