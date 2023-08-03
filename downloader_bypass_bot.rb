@@ -71,6 +71,7 @@ class DownloaderBypassBot
     puts ''
 
     AsHelper.safe_connect_other_network
+    AsHelper.close_chrome
     sleep(12)
 
     raise 'Bypass IP blocking!'
