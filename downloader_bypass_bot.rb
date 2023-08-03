@@ -10,6 +10,8 @@ class DownloaderBypassBot
     context.bot_page = false
     context.craft_page = false
 
+    check_ip_blocked
+
     return unless require_bypass?
 
     bypass_bot
