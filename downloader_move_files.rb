@@ -19,7 +19,7 @@ class DownloaderMoveFiles
     wait_seconds = 0
     loop do
       break if temp_missing_count == 0
-      break if wait_seconds == 12
+      break if wait_seconds == context.tabs.count
 
       sleep(1)
       wait_seconds += 1
