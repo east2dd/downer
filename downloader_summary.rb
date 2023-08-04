@@ -32,10 +32,11 @@ class DownloaderSummary
       end
     end
 
-    seconds = (Time.now.to_i - context.starts_at.to_i).to_f
+    seconds = Time.now.to_i - context.starts_at.to_i
+    speed = (context.download_count.to_f * 3600 / seconds).to_i
 
     puts "  ~ Summary: #{context.download_count} downloaded, #{context.missed_download_count} missed, #{seconds} seconds"
-    puts "  ~ Speed: #{context.download_count.to_f * 3600 / seconds}/h"
+    puts "  ~ Speed: #{speed}/h"
     puts ''
   end
 
