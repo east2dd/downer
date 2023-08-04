@@ -6,6 +6,7 @@ class DownloaderBuildArticles
   include Interactor
 
   def call
+    context.starts_at = Time.now
     Article.clear_temp_dir!
 
     context.missed_article_list ||= []
