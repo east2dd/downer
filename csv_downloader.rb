@@ -1,5 +1,6 @@
 require 'action_view'
 require_relative 'downloader'
+require_relative 'as_helper'
 
 class CsvDownloader
   include ActionView::Helpers::DateHelper

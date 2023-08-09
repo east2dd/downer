@@ -189,10 +189,33 @@ module AsHelper
     `osascript -e '#{script}'`
   end
 
+  def current_tab_title_and_url
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        set currentTabUrl to URL of active tab of front window
+        set currentTabTitle to title of active tab of front window
+      end tell
+
+      return currentTabTitle & "," & currentTabUrl
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`.strip
+  end
+
   def current_tab_url
     script = <<~APPLESCRIPT
       tell application "Google Chrome"
         get URL of active tab of front window
+      end tell
+    APPLESCRIPT
+
+    `osascript -e '#{script}'`.strip
+  end
+
+  def current_tab_title
+    script = <<~APPLESCRIPT
+      tell application "Google Chrome"
+        get title of active tab of front window
       end tell
     APPLESCRIPT
 
