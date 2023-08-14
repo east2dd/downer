@@ -38,6 +38,25 @@ task :report do
   Reporter.new(options[:input_file]).call
 end
 
+# rake sanitize -- -f article_list.csv
+task :sanitize do
+  require_relative 'sanitizer'
+  options = {
+    input_file: 'article_list.csv'
+  }
+  opts = OptionParser.new
+  opts.banner = 'Usage: rake sanitizer [options]'
+  opts.on('-f', '--f FILENAME', 'Input csv file name') { |input_file| options[:input_file] = input_file }
+  args = opts.order!(ARGV) {}
+  opts.parse!(args)
+
+  puts '--------------------------------'
+  puts 'Start sanitizing...'
+  puts '--------------------------------'
+
+  Sanitizer.new(options[:input_file]).call
+end
+
 # rake download -- -f article_list.csv
 task :download do
   require 'csv'

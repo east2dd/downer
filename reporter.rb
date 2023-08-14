@@ -73,18 +73,8 @@ class Reporter
     @missed_article_list << article.to_a
   end
 
-  def useless_article?(article)
-    article.title.downcase.include? 'korean'
-  end
-
   def process_downloaded_article(article)
     @download_count += 1
-
-    if useless_article?(article)
-      @useless_article_list << article.to_a
-      @wrongable_article_list << article.to_a
-      return
-    end
 
     return if article.file_size / 1024 > 150 # file size in kb
     return if article.page_count > 5
