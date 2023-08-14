@@ -44,9 +44,9 @@ class Sanitizer
     article_list.each do |article_item|
       article = Article.new(article_item)
 
-      if sanitizable?(article) || useless?(article)
+      if sanitizable?(article)
         puts "x Deleting: #{article}"
-        # article.delete_destination_file!
+        article.delete_destination_file!
         @missed_count += 1
 
         next
