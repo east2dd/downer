@@ -11,6 +11,8 @@ class Sanitizer
     @downloaded_count = 0
     @original_count = 0
 
+    @sanitizable_article_list = []
+
     filename = File.basename(input_file, '.*')
     @output_file = File.join(File.dirname(input_file), "#{filename}-sanitized.csv")
     File.delete(@output_file) if File.exist?(@output_file)
@@ -21,6 +23,7 @@ class Sanitizer
       process_article_list(article_list)
     end
 
+    sanitize!
     print_summary
   end
 
@@ -45,10 +48,7 @@ class Sanitizer
       article = Article.new(article_item)
 
       if sanitizable?(article)
-        puts "x Deleting: #{article}"
-        article.delete_destination_file!
-        @missed_count += 1
-
+        @sanitizable_article_list << article_item
         next
       end
 
@@ -57,6 +57,14 @@ class Sanitizer
     end
 
     save_article_list(writable_article_list)
+  end
+
+  def sanitize!
+    @sanitizable_article_list.each do |article_item|
+      article = Article.new(article_item)
+      puts "x Deleting: #{article}"
+      article.delete_destination_file!
+    end
   end
 
   def save_article_list(article_list)
@@ -68,7 +76,7 @@ class Sanitizer
   def print_summary
     puts ''
     puts " ~ Original CSV: #{@original_count}"
-    puts " ~ Missed: #{@missed_count}"
+    puts " ~ Sanitized: #{@sanitizable_article_list.count}"
     puts " ~ Output CSV: #{@downloaded_count}"
     puts ''
   end
