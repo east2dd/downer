@@ -60,6 +60,7 @@ class Sanitizer
   end
 
   def sanitize!
+    puts "Sanitizable: #{@sanitizable_article_list.count}"
     @sanitizable_article_list.each do |article_item|
       article = Article.new(article_item)
       puts "x Deleting: #{article}"
