@@ -6,7 +6,7 @@ class Article
 
   CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
   DOWNLOAD_DIR = File.expand_path('~/Downloads')
-  DEST_DIR = "#{CURRENT_DIR}/downloads".freeze
+  DEST_DIR = '/Volumes/Untitled/ScienceDirect/downloads'.freeze
 
   def initialize(data)
     @data = data
@@ -64,11 +64,6 @@ class Article
   end
 
   def delete_destination_file!
-    if page_count > 2
-      puts 'Cannot delete 3+ pages pdf. Check pdf file and delete manually!'
-      return false
-    end
-
     return false unless File.exist?(destination_file_path)
 
     File.delete(destination_file_path)

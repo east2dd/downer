@@ -20,9 +20,6 @@ class Reporter
     @one_page_article_list = []
     @two_page_article_list = []
     @invalid_article_list = []
-
-    @wrongable_article_list = []
-    @useless_article_list = []
   end
 
   def call
@@ -31,10 +28,6 @@ class Reporter
     CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
       process_article_list(article_list)
     end
-
-    delete_wrong_files
-    # build_extra_csv
-    print_total_summary
   end
 
   private
@@ -44,19 +37,7 @@ class Reporter
       process_article_item(article_item)
     end
 
-    # build_extra_csv
     print_summary
-  end
-
-  def print_total_summary
-    puts '--------------------------------'
-
-    puts 'Invalid PDF'
-    @invalid_article_list.each do |item|
-      puts Article.new(item).to_extra_s
-    end
-
-    puts '--------------------------------'
   end
 
   def process_article_item(article_item)
@@ -82,10 +63,6 @@ class Reporter
     @one_page_article_list << article.to_a if article.page_count == 1
     @two_page_article_list << article.to_a if article.page_count == 2
     @invalid_article_list << article.to_a if article.page_count == -1
-
-    return if article.page_count > 2 && article.page_count != -1
-
-    @wrongable_article_list << article.to_extra_a
   end
 
   def print_summary
@@ -97,25 +74,6 @@ class Reporter
     puts "  ~ One page: #{@one_page_article_list.count}"
     puts "  ~ Two pages: #{@two_page_article_list.count}"
     puts "  ~ Invalid PDF: #{@invalid_article_list.count}"
-    puts "  ~ Useless: #{@useless_article_list.count}"
     puts ''
-  end
-
-  def delete_wrong_files
-    return false if @wrongable_article_list.count == 0
-
-    puts 'Deleting wrong files!'
-    @wrongable_article_list.each do |article_item|
-      article = Article.new(article_item)
-
-      puts "x Deleting: #{article}"
-      article.delete_destination_file!
-    end
-  end
-
-  def build_extra_csv
-    output_file = 'article_list-extra.csv'
-    WriteArticleListFile.call(output_file:, article_list: @wrongable_article_list)
-    @wrongable_article_list = []
   end
 end
