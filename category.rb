@@ -800,111 +800,429 @@ class Category
     #     }
     #   ]
     # },
-    {
-      id: '2600',
-      title: 'Mathematics',
-      publications: [
-        {
-          id: '272578',
-          title: 'Journal of Mathematical Analysis and Applications'
-        },
-        {
-          id: '271610',
-          title: 'Journal of Computational and Applied Mathematics'
-        },
-        {
-          id: '272332',
-          title: 'Journal of Algebra'
-        },
-        {
-          id: '271586',
-          title: 'Linear Algebra and its Applications'
-        },
-        {
-          id: '271503',
-          title: 'Computers & Mathematics with Applications'
-        },
-        {
-          id: '271538',
-          title: 'Theoretical Computer Science'
-        },
-        {
-          id: '271589',
-          title: 'Applied Mathematical Modelling'
-        },
-        {
-          id: '272398',
-          title: 'Journal of Differential Equations'
-        },
-        {
-          id: '271536',
-          title: 'Discrete Mathematics'
-        },
-        {
-          id: '272585',
-          title: 'Advances in Mathematics'
-        },
-        {
-          id: '271523',
-          title: 'Topology and its Applications'
-        },
-        {
-          id: '271602',
-          title: 'Discrete Applied Mathematics'
-        },
-        {
-          id: '271532',
-          title: 'Applied Mathematics Letters'
-        },
-        {
-          id: '272990',
-          title: 'Electronic Notes in Theoretical Computer Science'
-        },
-        {
-          id: '272266',
-          title: 'Comptes Rendus Mathematique'
-        },
-        {
-          id: '272601',
-          title: 'Journal of Functional Analysis'
-        },
-        {
-          id: '271552',
-          title: 'Mathematical and Computer Modelling'
-        },
-        {
-          id: '271560',
-          title: 'Nuclear Physics B'
-        },
-        {
-          id: '272482',
-          title: 'Journal of Number Theory'
-        },
-        {
-          id: '272481',
-          title: 'Journal of Multivariate Analysis'
-        },
-        {
-          id: '272420',
-          title: 'European Journal of Combinatorics'
-        },
-        {
-          id: '271499',
-          title: 'Stochastic Processes and their Applications'
-        },
-        {
-          id: '271555',
-          title: 'Journal of Geometry and Physics'
-        },
-        {
-          id: '271593',
-          title: 'Journal of Pure and Applied Algebra'
-        },
-        {
-          id: '272565',
-          title: 'Journal of Combinatorial Theory, Series A'
-        }
-      ]
-    }
+    # {
+    #   id: '2600',
+    #   title: 'Mathematics',
+    #   publications: [
+    #     {
+    #       id: '272578',
+    #       title: 'Journal of Mathematical Analysis and Applications'
+    #     },
+    #     {
+    #       id: '271610',
+    #       title: 'Journal of Computational and Applied Mathematics'
+    #     },
+    #     {
+    #       id: '272332',
+    #       title: 'Journal of Algebra'
+    #     },
+    #     {
+    #       id: '271586',
+    #       title: 'Linear Algebra and its Applications'
+    #     },
+    #     {
+    #       id: '271503',
+    #       title: 'Computers & Mathematics with Applications'
+    #     },
+    #     {
+    #       id: '271538',
+    #       title: 'Theoretical Computer Science'
+    #     },
+    #     {
+    #       id: '271589',
+    #       title: 'Applied Mathematical Modelling'
+    #     },
+    #     {
+    #       id: '272398',
+    #       title: 'Journal of Differential Equations'
+    #     },
+    #     {
+    #       id: '271536',
+    #       title: 'Discrete Mathematics'
+    #     },
+    #     {
+    #       id: '272585',
+    #       title: 'Advances in Mathematics'
+    #     },
+    #     {
+    #       id: '271523',
+    #       title: 'Topology and its Applications'
+    #     },
+    #     {
+    #       id: '271602',
+    #       title: 'Discrete Applied Mathematics'
+    #     },
+    #     {
+    #       id: '271532',
+    #       title: 'Applied Mathematics Letters'
+    #     },
+    #     {
+    #       id: '272990',
+    #       title: 'Electronic Notes in Theoretical Computer Science'
+    #     },
+    #     {
+    #       id: '272266',
+    #       title: 'Comptes Rendus Mathematique'
+    #     },
+    #     {
+    #       id: '272601',
+    #       title: 'Journal of Functional Analysis'
+    #     },
+    #     {
+    #       id: '271552',
+    #       title: 'Mathematical and Computer Modelling'
+    #     },
+    #     {
+    #       id: '271560',
+    #       title: 'Nuclear Physics B'
+    #     },
+    #     {
+    #       id: '272482',
+    #       title: 'Journal of Number Theory'
+    #     },
+    #     {
+    #       id: '272481',
+    #       title: 'Journal of Multivariate Analysis'
+    #     },
+    #     {
+    #       id: '272420',
+    #       title: 'European Journal of Combinatorics'
+    #     },
+    #     {
+    #       id: '271499',
+    #       title: 'Stochastic Processes and their Applications'
+    #     },
+    #     {
+    #       id: '271555',
+    #       title: 'Journal of Geometry and Physics'
+    #     },
+    #     {
+    #       id: '271593',
+    #       title: 'Journal of Pure and Applied Algebra'
+    #     },
+    #     {
+    #       id: '272565',
+    #       title: 'Journal of Combinatorial Theory, Series A'
+    #     }
+    #   ]
+    # },
+    # {
+    #   id: '1600',
+    #   title: 'Chemistry',
+    #   publications: [
+        # {
+        #   id: '783334',
+        #   title: 'International Journal of Electrochemical Science'
+        # },
+        # {
+        #   id: '278663',
+        #   title: 'Arabian Journal of Chemistry'
+        # },
+        # {
+        #   id: '278678',
+        #   title: 'Journal of King Saud University - Science'
+        # },
+        # {
+        #   id: '272264',
+        #   title: 'Comptes Rendus Chimie'
+        # },
+        # {
+        #   id: '277412',
+        #   title: 'Journal of Functional Foods'
+        # },
+        # {
+        #   id: '271362',
+        #   title: 'Journal of the American Society for Mass Spectrometry'
+        # },
+        # {
+        #   id: '272022',
+        #   title: 'Chemistry & Biology'
+        # },
+        # {
+        #   id: '278684',
+        #   title: 'Procedia Chemistry'
+        # },
+        # {
+        #   id: '271163',
+        #   title: 'Food Chemistry'
+        # },
+        # {
+        #   id: '279952',
+        #   title: 'Journal of Advanced Research'
+        # },
+        # {
+        #   id: '271548',
+        #   title: 'Ultrasonics Sonochemistry'
+        # },
+        # {
+        #   id: '271545',
+        #   title: 'Polymer Testing'
+        # },
+        # {
+        #   id: '320277',
+        #   title: 'Results in Chemistry'
+        # },
+        # {
+        #   id: '271533',
+        #   title: 'Applied Surface Science'
+        # },
+        # {
+        #   id: '271472',
+        #   title: 'International Journal of Hydrogen Energy'
+        # },
+        # {
+        #   id: '314039',
+        #   title: 'Chem'
+        # },
+        # {
+        #   id: '313924',
+        #   title: 'Cell Chemical Biology'
+        # },
+        # {
+        #   id: '781220',
+        #   title: 'Organic & Biomolecular Chemistry'
+        # },
+        # {
+        #   id: '320466',
+        #   title: 'Food Chemistry'
+        # },
+        # {
+        #   id: '271345',
+        #   title: 'Carbohydrate Polymers'
+        # },
+        # {
+        #   id: '271355',
+        #   title: 'Electrochimica Acta'
+        # },
+    #     {
+    #       id: '271360',
+    #       title: 'Talanta'
+    #     },
+    #     {
+    #       id: '781277',
+    #       title: 'Polymer Chemistry'
+    #     },
+    #     {
+    #       id: '271367',
+    #       title: 'Journal of Power Sources'
+    #     },
+    #     {
+    #       id: '781211',
+    #       title: 'The Journal of Organic Chemistry'
+    #     }
+    #   ]
+    # },
+    # {
+    #   id: '2100',
+    #   title: 'Energy',
+    #   publications: [
+        # {
+        #   id: '277910',
+        #   title: 'Energy Procedia'
+        # },
+        # {
+        #   id: '311225',
+        #   title: 'Energy Reports'
+        # },
+        # {
+        #   id: '312207',
+        #   title: 'Nuclear Engineering and Technology'
+        # },
+        # {
+        #   id: '271750',
+        #   title: 'Journal of Cleaner Production'
+        # },
+        # {
+        #   id: '271429',
+        #   title: 'Applied Energy'
+        # },
+        # {
+        #   id: '308307',
+        #   title: 'Nuclear Materials and Energy'
+        # },
+        # {
+        #   id: '271090',
+        #   title: 'Energy'
+        # },
+        # {
+        #   id: '272592',
+        #   title: 'Journal of Environmental Management'
+        # },
+        # {
+        #   id: '271431',
+        #   title: 'Renewable Energy'
+        # },
+        # {
+        #   id: '271472',
+        #   title: 'International Journal of Hydrogen Energy'
+        # },
+        # {
+        #   id: '305759',
+        #   title: 'Energy Research & Social Science'
+        # },
+        # {
+        #   id: '280744',
+        #   title: 'Egyptian Journal of Petroleum'
+        # },
+        # {
+        #   id: '312049',
+        #   title: 'Natural Gas Industry B'
+        # },
+        # {
+        #   id: '271434',
+        #   title: 'Building and Environment'
+        # },
+        # {
+        #   id: '316494',
+        #   title: 'Joule'
+        # },
+    #     {
+    #       id: '271089',
+    #       title: 'Energy and Buildings'
+    #     },
+    #     {
+    #       id: '271367',
+    #       title: 'Journal of Power Sources'
+    #     },
+    #     {
+    #       id: '271991',
+    #       title: 'Environmental Science & Policy'
+    #     },
+    #     {
+    #       id: '314310',
+    #       title: 'Green Energy & Environment'
+    #     },
+    #     {
+    #       id: '271808',
+    #       title: 'Resources, Conservation and Recycling'
+    #     },
+    #     {
+    #       id: '271098',
+    #       title: 'Energy Conversion and Management'
+    #     },
+    #     {
+    #       id: '312314',
+    #       title: 'Petroleum'
+    #     },
+    #     {
+    #       id: '282179',
+    #       title: 'AASRI Procedia'
+    #     },
+    #     {
+    #       id: '308665',
+    #       title: 'Journal of Energy Storage'
+    #     },
+    #     {
+    #       id: '271641',
+    #       title: 'Applied Thermal Engineering'
+    #     }
+    #   ]
+    # },
+    # {
+    #   id: '2400',
+    #   title: 'Immunology and Microbiology',
+    #   publications: [
+        # {
+        #   id: '272412',
+        #   title: 'Virology'
+        # },
+        # {
+        #   id: '272196',
+        #   title: 'Cell'
+        # },
+        # {
+        #   id: '270195',
+        #   title: 'Molecular Therapy'
+        # },
+        # {
+        #   id: '312004',
+        #   title: 'Clinical Microbiology and Infection'
+        # },
+        # {
+        #   id: '272991',
+        #   title: 'International Journal of Infectious Diseases'
+        # },
+        # {
+        #   id: '272926',
+        #   title: 'Biology of Blood and Marrow Transplantation'
+        # },
+        # {
+        #   id: '271205',
+        #   title: 'Vaccine'
+        # },
+        # {
+        #   id: '272197',
+        #   title: 'Immunity'
+        # },
+        # {
+        #   id: '273181',
+        #   title: 'Microbiological Research'
+        # },
+        # {
+        #   id: '273614',
+        #   title: 'Cell Host & Microbe'
+        # },
+        # {
+        #   id: '782809',
+        #   title: 'Mucosal Immunology'
+        # },
+        # {
+        #   id: '280178',
+        #   title: 'Journal of Microbiology, Immunology and Infection'
+        # },
+        # {
+        #   id: '280278',
+        #   title: 'The Brazilian Journal of Infectious Diseases'
+        # },
+        # {
+        #   id: '778509',
+        #   title: 'Indian Journal of Medical Microbiology'
+        # },
+        # {
+        #   id: '272582',
+        #   title: 'Journal of Molecular Biology'
+        # },
+    #     {
+    #       id: '279953',
+    #       title: 'Field Mycology'
+    #     },
+    #     {
+    #       id: '283376',
+    #       title: 'Clinical Epidemiology and Global Health'
+    #     },
+    #     {
+    #       id: '272425',
+    #       title: 'Journal of Allergy and Clinical Immunology'
+    #     },
+    #     {
+    #       id: '287516',
+    #       title: 'Revista Argentina de Microbiología'
+    #     },
+    #     {
+    #       id: '272179',
+    #       title: 'International Immunopharmacology'
+    #     },
+    #     {
+    #       id: '286287',
+    #       title: 'Journal of Global Antimicrobial Resistance'
+    #     },
+    #     {
+    #       id: '777356',
+    #       title: 'Transplantation and Cellular Therapy'
+    #     },
+    #     {
+    #       id: '271207',
+    #       title: 'Veterinary Parasitology'
+    #     },
+    #     {
+    #       id: '272555',
+    #       title: 'Brain, Behavior, and Immunity'
+    #     },
+    #     {
+    #       id: '312001',
+    #       title: 'New Microbes and New Infections'
+    #     }
+    #   ]
+    # }
   ]
 end
