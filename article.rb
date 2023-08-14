@@ -123,6 +123,8 @@ class Article
   end
 
   def file_size
+    return 0 unless File.exist?(destination_file_path)
+
     File.size(destination_file_path)
   end
 

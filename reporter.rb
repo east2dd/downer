@@ -29,6 +29,8 @@ class Reporter
     CSV.foreach(@input_file, headers: false).each_slice(@chunk_size) do |article_list|
       process_article_list(article_list)
     end
+
+    print_total_summary
   end
 
   private
@@ -83,5 +85,9 @@ class Reporter
     puts "  ~ Invalid PDF: #{@invalid_article_list.count}"
     puts "  ~ Sanitizable: #{@sanitizable_article_list.count}"
     puts ''
+  end
+
+  def print_total_summary
+    puts 'Done!'
   end
 end
