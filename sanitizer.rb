@@ -26,11 +26,11 @@ class Sanitizer
 
   private
 
-  def useless_article?(article)
+  def sanitizable?(article)
     article.title.downcase.include? 'korea'
   end
 
-  def sanitizable_article?(article)
+  def useless?(article)
     return false if article.file_size / 1024 > 150 # file size in kb
     return false if article.page_count > 2
 
@@ -44,7 +44,7 @@ class Sanitizer
     article_list.each do |article_item|
       article = Article.new(article_item)
 
-      if useless_article?(article) || sanitizable_article?(article)
+      if sanitizable?(article) || useless?(article)
         puts "x Deleting: #{article}"
         # article.delete_destination_file!
         @missed_count += 1

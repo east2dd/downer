@@ -20,6 +20,7 @@ class Reporter
     @one_page_article_list = []
     @two_page_article_list = []
     @invalid_article_list = []
+    @sanitizable_article_list = []
   end
 
   def call
@@ -57,12 +58,18 @@ class Reporter
   def process_downloaded_article(article)
     @download_count += 1
 
+    @sanitizable_article_list << article.to_a if useless_article?(article)
+
     return if article.file_size / 1024 > 150 # file size in kb
     return if article.page_count > 5
 
     @one_page_article_list << article.to_a if article.page_count == 1
     @two_page_article_list << article.to_a if article.page_count == 2
     @invalid_article_list << article.to_a if article.page_count == -1
+  end
+
+  def sanitizable?(article)
+    article.title.downcase.include? 'korea'
   end
 
   def print_summary
@@ -74,6 +81,7 @@ class Reporter
     puts "  ~ One page: #{@one_page_article_list.count}"
     puts "  ~ Two pages: #{@two_page_article_list.count}"
     puts "  ~ Invalid PDF: #{@invalid_article_list.count}"
+    puts "  ~ Sanitizable: #{@sanitizable_article_list.count}"
     puts ''
   end
 end
