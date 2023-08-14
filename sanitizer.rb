@@ -30,7 +30,11 @@ class Sanitizer
   private
 
   def sanitizable?(article)
-    article.title.downcase.include? 'korea'
+    article.title.downcase.include?('korea')
+  end
+
+  def csv_header?(article)
+    article.title.downcase == 'title'
   end
 
   def useless?(article)
@@ -47,13 +51,14 @@ class Sanitizer
     article_list.each do |article_item|
       article = Article.new(article_item)
 
+      next if csv_header?(article)
+
       if sanitizable?(article)
         @sanitizable_article_list << article_item
-        next
+      else
+        writable_article_list << article_item
+        @downloaded_count += 1
       end
-
-      writable_article_list << article_item
-      @downloaded_count += 1
     end
 
     save_article_list(writable_article_list)
