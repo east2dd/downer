@@ -58,7 +58,7 @@ class Reporter
   def process_downloaded_article(article)
     @download_count += 1
 
-    @sanitizable_article_list << article.to_a if useless_article?(article)
+    @sanitizable_article_list << article.to_a if sanitizable?(article)
 
     return if article.file_size / 1024 > 150 # file size in kb
     return if article.page_count > 5
