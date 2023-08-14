@@ -6,6 +6,7 @@ class Article
 
   CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
   DOWNLOAD_DIR = File.expand_path('~/Downloads')
+  DEST_DIR = "#{CURRENT_DIR}/downloads".freeze
 
   def initialize(data)
     @data = data
@@ -21,7 +22,7 @@ class Article
   end
 
   def category_dir
-    @category_dir ||= "#{CURRENT_DIR}/downloads/#{category}"
+    @category_dir ||= "#{DEST_DIR}/#{category}"
   end
 
   def destination_dir

@@ -17,9 +17,10 @@ class DownloaderMoveFiles
     puts '~ Waiting Download: ...'
 
     wait_seconds = 0
+    max_seconds = context.tabs.count * 3
     loop do
       break if temp_missing_count == 0
-      break if wait_seconds >= context.tabs.count * 2
+      break if wait_seconds >= max_seconds
 
       sleep(1)
       wait_seconds += 1
