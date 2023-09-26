@@ -6,7 +6,7 @@ class Article
 
   CURRENT_DIR = File.dirname(File.expand_path(__FILE__))
   DOWNLOAD_DIR = File.expand_path('~/Downloads')
-  DEST_DIR = '/Volumes/Untitled/ScienceDirect'.freeze
+  DEST_DIR = '/Volumes/Work/ScienceDirect'.freeze
 
   def initialize(data)
     @data = data

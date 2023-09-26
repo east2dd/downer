@@ -67,7 +67,7 @@ class ScrapeArticleList
 
   def article_record_from_item(item)
     title = title_from_item(item)
-    year = context.year
+    year = year_from_item(item)
     publication = context.publication
     category = context.category
     link = link_from_item(item)
@@ -101,9 +101,12 @@ class ScrapeArticleList
     date_fields = item.find_element(:class, 'srctitle-date-fields')
     child_spans = date_fields.find_elements(:tag_name, 'span')
     date_string = child_spans.last.text
+    puts date_string
     date = Date.parse(date_string)
 
-    date.year 
+    date.year
+  rescue
+    date_string
   end
 
   def download_link_from_item(item)

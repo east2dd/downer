@@ -125,3 +125,42 @@ task :csv do
     end
   end
 end
+
+task :csv_test do
+  require_relative 'scraper'
+  require_relative 'category'
+
+  options = {
+    url: 'https://www.sciencedirect.com/search?qs=satellite&pub=Aerospace%20Science%20and%20Technology&show=100&accessTypes=openaccess&lastSelectedFacet=accessTypes',
+    category: 'aerospace',
+    output_file: 'article_list.csv',
+    publication: 'ScienceDirect'
+  }
+  opts = OptionParser.new
+  opts.banner = 'Usage: rake csv [options]'
+  opts.on('-u', '--u URL', 'URL for article list') { |url| options[:url] = url }
+  opts.on('-f', '--f FILENAME', 'Output csv filename') { |output_file| options[:output_file] = output_file }
+  opts.on('-c', '--c CATEGORY', 'Category') { |category| options[:category] = category }
+  opts.on('-p', '--p PUBLICATION_TITLE', 'Publication title') { |publication| options[:publication] = publication }
+  args = opts.order!(ARGV) {}
+  opts.parse!(args)
+
+  puts '--------------------------------'
+  puts 'Start building csv...'
+  puts '--------------------------------'
+
+  url = options[:url]
+
+  while url
+    puts "Processing url: #{url}"
+
+    context = Scraper.new(url, 2023, "Acta Astronautica", "aerospace", options[:output_file]).scrape
+    sleep(3)
+    puts '--------------------------------'
+    if context && (url = context.next_url)
+      puts 'Next!'
+    else
+      url = false
+    end
+  end
+end
